@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="anime"
+            type="github.ardondev.apuri.network.models.Anime"/>
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
