@@ -11,4 +11,10 @@
         android:label="@string/txt_anime"
         tools:layout="@layout/fragment_anime"/>
 
+    <fragment
+        android:id="@+id/mangaFragment"
+        android:name="github.ardondev.apuri.ui.manga.MangaFragment"
+        android:label="@string/txt_manga"
+        tools:layout="@layout/fragment_manga"/>
+
 </navigation>
