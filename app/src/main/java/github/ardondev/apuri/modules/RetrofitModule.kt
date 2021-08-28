@@ -11,6 +11,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
+const val BASE_URL = "https://kitsu.io/api/edge/"
+
 val retrofitModule = module {
 
     fun createMoshi(): Moshi? {
@@ -42,7 +44,7 @@ val retrofitModule = module {
     fun createRetrofit(moshi: Moshi, httpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .baseUrl("")
+            .baseUrl(BASE_URL)
             .client(httpClient)
             .build()
     }
