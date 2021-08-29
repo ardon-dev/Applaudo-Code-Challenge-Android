@@ -1,13 +1,19 @@
 package github.ardondev.apuri.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import github.ardondev.apuri.network.ApiService
+import github.ardondev.apuri.network.models.Anime
 import github.ardondev.apuri.network.response.AnimeListResponse
 import github.ardondev.apuri.network.response.EpisodeListResponse
+import github.ardondev.apuri.repository.paging.AnimePagingDataSource
 import github.ardondev.apuri.utils.Result
+import kotlinx.coroutines.flow.Flow
 
 class AppDataSource(
     private val apiService: ApiService
-): AppRepository {
+) : AppRepository {
 
     override suspend fun getAnime(): Result<AnimeListResponse> {
         return try {
@@ -31,6 +37,17 @@ class AppDataSource(
         } catch (e: Exception) {
             Result.Error(e)
         }
+    }
+
+    override fun getAllAnime(): Flow<PagingData<Anime>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                AnimePagingDataSource(
+                    apiService = apiService
+                )
+            }
+        ).flow
     }
 
 }

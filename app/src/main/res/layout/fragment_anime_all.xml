@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="github.ardondev.apuri.ui.anime_all.AnimeAllViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,21 +20,54 @@
             android:id="@+id/animeAll_searchView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="@string/txt_search_anime" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/animeAll_recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:paddingStart="16dp"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/animeAll_errorTxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/animeAll_searchView"
             app:spanCount="3"
-            tools:listitem="@layout/item_anime"
-            android:paddingStart="16dp"/>
+            tools:listitem="@layout/item_anime" />
+
+        <TextView
+            android:id="@+id/animeAll_errorTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintBottom_toTopOf="@id/animeAll_progressView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animeAll_recyclerView"
+            tools:text="Error text"
+            android:visibility="gone"
+            status="@{viewModel.animeListStatus}"
+            message="@{viewModel.animeListError}"/>
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/animeAll_progressView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animeAll_errorTxt"
+            android:visibility="gone"
+            app:setProgressVisibility="@{viewModel.animeListStatus}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
