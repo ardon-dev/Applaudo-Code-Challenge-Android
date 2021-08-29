@@ -7,24 +7,52 @@
 
         <variable
             name="anime"
-            type="github.ardondev.apuri.network.models.Anime"/>
+            type="github.ardondev.apuri.network.models.Anime" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        android:layout_marginEnd="16dp">
+        app:cardElevation="0dp">
 
-        <ImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            app:setRemoteImage="@{anime.attributes.posterImage.small}"/>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setRemoteImage="@{anime.attributes.posterImage.small}"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_gradient"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:maxLines="2"
+                android:padding="8dp"
+                android:text="@{anime.attributes.canonicalTitle}"
+                android:textAppearance="@style/Apuri.ShadowText"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Anime name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
