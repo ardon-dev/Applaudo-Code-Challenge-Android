@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.AnimeAdapter
 import github.ardondev.apuri.adapters.EpisodeAdapter
@@ -42,12 +43,22 @@ class AnimeFragment : Fragment() {
         setAnimeAdapter()
         setEpisodeAdapter()
         setAnimeTrendingAdapter()
+        setOnClickListener()
     }
 
 
     /*
     UI
      */
+
+    private fun setOnClickListener() {
+
+        //See more anime button
+        mBinding.animeSeeMoreButton.setOnClickListener {
+            findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment())
+        }
+
+    }
 
     private fun setAnimeAdapter() {
         mAnimeAdapter = AnimeAdapter(AnimeAdapter.OnAnimeClickListener { anime ->

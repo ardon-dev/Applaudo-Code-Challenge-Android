@@ -9,12 +9,24 @@
         android:id="@+id/animeFragment"
         android:name="github.ardondev.apuri.ui.anime.AnimeFragment"
         android:label="@string/txt_anime"
-        tools:layout="@layout/fragment_anime"/>
+        tools:layout="@layout/fragment_anime">
+
+        <action
+            android:id="@+id/action_animeFragment_to_animeAllFragment"
+            app:destination="@id/animeAllFragment"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/mangaFragment"
         android:name="github.ardondev.apuri.ui.manga.MangaFragment"
         android:label="@string/txt_manga"
         tools:layout="@layout/fragment_manga"/>
+
+    <fragment
+        android:id="@+id/animeAllFragment"
+        android:name="github.ardondev.apuri.ui.anime_all.AnimeAllFragment"
+        android:label="fragment_anime_all"
+        tools:layout="@layout/fragment_anime_all"/>
 
 </navigation>
