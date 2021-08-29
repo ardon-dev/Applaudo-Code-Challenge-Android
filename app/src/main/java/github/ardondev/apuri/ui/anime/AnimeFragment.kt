@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.AnimeAdapter
+import github.ardondev.apuri.adapters.EpisodeAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeBinding
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.setError
@@ -21,6 +22,7 @@ class AnimeFragment : Fragment() {
     private val mViewModel: AnimeViewModel by inject()
 
     private lateinit var mAnimeAdapter: AnimeAdapter
+    private lateinit var mEpisodeAdapter: EpisodeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +39,7 @@ class AnimeFragment : Fragment() {
     private fun initFlow() {
         setObservers()
         setAnimeAdapter()
+        setEpisodeAdapter()
     }
 
 
@@ -49,6 +52,11 @@ class AnimeFragment : Fragment() {
             //Navigate to detail
         })
         mBinding.animeRecyclerView.adapter = mAnimeAdapter
+    }
+
+    private fun setEpisodeAdapter() {
+        mEpisodeAdapter = EpisodeAdapter()
+        mBinding.animeEpisodesRecyclerView.adapter = mEpisodeAdapter
     }
 
 
@@ -66,6 +74,22 @@ class AnimeFragment : Fragment() {
                     mAnimeAdapter.submitList(animeList)
                 } else {
                     mBinding.animeErrorTxt.setError(
+                        status = Status.ERROR,
+                        message = getString(R.string.txt_empty_list)
+                    )
+                }
+            }
+        })
+
+
+        //Episodes
+
+        mViewModel.episodeListResponse.observe(viewLifecycleOwner, Observer { response ->
+            response.data?.let { episodeList ->
+                if (episodeList.isNotEmpty()) {
+                    mEpisodeAdapter.submitList(episodeList)
+                } else {
+                    mBinding.animeEpisodesErrorTxt.setError(
                         status = Status.ERROR,
                         message = getString(R.string.txt_empty_list)
                     )

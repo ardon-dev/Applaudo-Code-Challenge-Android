@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import github.ardondev.apuri.network.response.AnimeListResponse
+import github.ardondev.apuri.network.response.EpisodeListResponse
 import github.ardondev.apuri.repository.AppRepository
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.getData
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class AnimeViewModel(
     private val appRepository: AppRepository
-): ViewModel() {
+) : ViewModel() {
 
     //Anime
 
@@ -50,8 +51,43 @@ class AnimeViewModel(
     }
 
 
+    //Episodes
+
+    private val _episodeListStatus = MutableLiveData<Status>()
+    val episodeListStatus: LiveData<Status>
+        get() = _episodeListStatus
+
+    private val _episodeListResponse = MutableLiveData<EpisodeListResponse>()
+    val episodeListResponse: LiveData<EpisodeListResponse>
+        get() = _episodeListResponse
+
+    private val _episodeListError = MutableLiveData<String>()
+    val episodeListError: LiveData<String>
+        get() = _episodeListError
+
+    fun getEpisodes() {
+        viewModelScope.launch {
+            _episodeListStatus.postValue(Status.LOADING)
+            val result = appRepository.getEpisodes()
+
+            if (result.succeeded) {
+                _episodeListResponse.postValue(result.getData())
+                _episodeListStatus.postValue(Status.SUCCESS)
+
+            } else {
+                _episodeListError.postValue(result.getError().message)
+                _episodeListStatus.postValue(Status.ERROR)
+
+            }
+
+        }
+
+    }
+
+
     init {
         getAnime()
+        getEpisodes()
     }
 
 }
