@@ -12,6 +12,7 @@ import github.ardondev.apuri.utils.getData
 import github.ardondev.apuri.utils.getError
 import github.ardondev.apuri.utils.succeeded
 import kotlinx.coroutines.launch
+import org.koin.android.ext.koin.ERROR_MSG
 
 class AnimeViewModel(
     private val appRepository: AppRepository
@@ -85,9 +86,43 @@ class AnimeViewModel(
     }
 
 
+    //Trending
+
+    private val _animeTrendingStatus = MutableLiveData<Status>()
+    val animeTrendingStatus: LiveData<Status>
+        get() = _animeTrendingStatus
+
+    private val _animeTrendingResponse = MutableLiveData<AnimeListResponse>()
+    val animeTrendingResponse: LiveData<AnimeListResponse>
+        get() = _animeTrendingResponse
+
+    private val _animeTrendingError = MutableLiveData<String>()
+    val animeTrendingError: LiveData<String>
+        get() = _animeTrendingError
+
+    fun getAnimeTrending() {
+        viewModelScope.launch {
+            _animeTrendingStatus.postValue(Status.LOADING)
+            val result = appRepository.getAnimeTrending()
+
+            if (result.succeeded) {
+                _animeTrendingResponse.postValue(result.getData())
+                _animeTrendingStatus.postValue(Status.SUCCESS)
+
+            } else {
+                _animeTrendingError.postValue(result.getError().message)
+                _animeTrendingStatus.postValue(Status.ERROR)
+
+            }
+
+        }
+
+    }
+
     init {
         getAnime()
         getEpisodes()
+        getAnimeTrending()
     }
 
 }

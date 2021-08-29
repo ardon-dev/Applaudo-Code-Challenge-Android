@@ -25,4 +25,12 @@ class AppDataSource(
         }
     }
 
+    override suspend fun getAnimeTrending(): Result<AnimeListResponse> {
+        return try {
+            Result.Success(apiService.getAnimeTrending())
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
 }

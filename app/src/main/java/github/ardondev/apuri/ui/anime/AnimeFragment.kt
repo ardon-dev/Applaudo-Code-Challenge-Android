@@ -23,6 +23,7 @@ class AnimeFragment : Fragment() {
 
     private lateinit var mAnimeAdapter: AnimeAdapter
     private lateinit var mEpisodeAdapter: EpisodeAdapter
+    private lateinit var mAnimeTrendingAdapter: AnimeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +41,7 @@ class AnimeFragment : Fragment() {
         setObservers()
         setAnimeAdapter()
         setEpisodeAdapter()
+        setAnimeTrendingAdapter()
     }
 
 
@@ -57,6 +59,13 @@ class AnimeFragment : Fragment() {
     private fun setEpisodeAdapter() {
         mEpisodeAdapter = EpisodeAdapter()
         mBinding.animeEpisodesRecyclerView.adapter = mEpisodeAdapter
+    }
+
+    private fun setAnimeTrendingAdapter() {
+        mAnimeTrendingAdapter = AnimeAdapter((AnimeAdapter.OnAnimeClickListener { anime ->
+
+        }))
+        mBinding.animeTrendingRecyclerView.adapter = mAnimeTrendingAdapter
     }
 
 
@@ -88,6 +97,22 @@ class AnimeFragment : Fragment() {
             response.data?.let { episodeList ->
                 if (episodeList.isNotEmpty()) {
                     mEpisodeAdapter.submitList(episodeList)
+                } else {
+                    mBinding.animeEpisodesErrorTxt.setError(
+                        status = Status.ERROR,
+                        message = getString(R.string.txt_empty_list)
+                    )
+                }
+            }
+        })
+
+
+        //Trending
+
+        mViewModel.animeTrendingResponse.observe(viewLifecycleOwner, Observer { response ->
+            response.data?.let { trendingList ->
+                if (trendingList.isNotEmpty()) {
+                    mAnimeTrendingAdapter.submitList(trendingList)
                 } else {
                     mBinding.animeEpisodesErrorTxt.setError(
                         status = Status.ERROR,

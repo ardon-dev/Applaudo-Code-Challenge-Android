@@ -10,4 +10,6 @@ interface AppRepository {
 
     suspend fun getEpisodes(): Result<EpisodeListResponse>
 
+    suspend fun getAnimeTrending(): Result<AnimeListResponse>
+
 }

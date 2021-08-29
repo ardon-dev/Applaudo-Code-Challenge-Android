@@ -12,4 +12,7 @@ interface ApiService {
     @GET("episodes")
     suspend fun getEpisodes(): EpisodeListResponse
 
+    @GET("trending/anime")
+    suspend fun getAnimeTrending(): AnimeListResponse
+
 }
