@@ -9,12 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.AnimeAdapter
-import github.ardondev.apuri.adapters.EpisodeAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeBinding
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.setError
-import github.ardondev.apuri.utils.setGone
-import github.ardondev.apuri.utils.setVisible
 import org.koin.android.ext.android.inject
 
 class AnimeFragment : Fragment() {
@@ -23,7 +20,6 @@ class AnimeFragment : Fragment() {
     private val mViewModel: AnimeViewModel by inject()
 
     private lateinit var mAnimeAdapter: AnimeAdapter
-    private lateinit var mEpisodeAdapter: EpisodeAdapter
     private lateinit var mAnimeTrendingAdapter: AnimeAdapter
 
     override fun onCreateView(
@@ -41,7 +37,6 @@ class AnimeFragment : Fragment() {
     private fun initFlow() {
         setObservers()
         setAnimeAdapter()
-        setEpisodeAdapter()
         setAnimeTrendingAdapter()
         setOnClickListener()
     }
@@ -65,11 +60,6 @@ class AnimeFragment : Fragment() {
             //Navigate to detail
         })
         mBinding.animeRecyclerView.adapter = mAnimeAdapter
-    }
-
-    private fun setEpisodeAdapter() {
-        mEpisodeAdapter = EpisodeAdapter()
-        mBinding.animeEpisodesRecyclerView.adapter = mEpisodeAdapter
     }
 
     private fun setAnimeTrendingAdapter() {
@@ -102,22 +92,6 @@ class AnimeFragment : Fragment() {
         })
 
 
-        //Episodes
-
-        mViewModel.episodeListResponse.observe(viewLifecycleOwner, Observer { response ->
-            response.data?.let { episodeList ->
-                if (episodeList.isNotEmpty()) {
-                    mEpisodeAdapter.submitList(episodeList)
-                } else {
-                    mBinding.animeEpisodesErrorTxt.setError(
-                        status = Status.ERROR,
-                        message = getString(R.string.txt_empty_list)
-                    )
-                }
-            }
-        })
-
-
         //Trending
 
         mViewModel.animeTrendingResponse.observe(viewLifecycleOwner, Observer { response ->
@@ -125,7 +99,7 @@ class AnimeFragment : Fragment() {
                 if (trendingList.isNotEmpty()) {
                     mAnimeTrendingAdapter.submitList(trendingList)
                 } else {
-                    mBinding.animeEpisodesErrorTxt.setError(
+                    mBinding.animeTrendingErrorTxt.setError(
                         status = Status.ERROR,
                         message = getString(R.string.txt_empty_list)
                     )

@@ -60,11 +60,11 @@
                     android:id="@+id/anime_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
                     android:paddingStart="16dp"
+                    android:paddingEnd="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -96,82 +96,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/anime_labelTxt"
-                    tools:text="Error text" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/anime_episodesLabelTxt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/txt_episodes"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    app:layout_constraintEnd_toStartOf="@id/anime_episodesSeeMoreButton"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/anime_episodesSeeMoreButton"
-                    style="@style/Apuri.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/txt_see_more"
-                    app:icon="@drawable/ic_round_keyboard_arrow_right_24"
-                    app:iconGravity="end"
-                    app:iconPadding="0dp"
-                    app:layout_constraintBottom_toBottomOf="@id/anime_episodesLabelTxt"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/anime_episodesLabelTxt"
-                    app:layout_constraintTop_toTopOf="@id/anime_episodesLabelTxt" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/anime_episodesRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    android:paddingStart="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_episodesLabelTxt"
-                    tools:listitem="@layout/item_episode" />
-
-                <ProgressBar
-                    android:id="@+id/anime_episodeProgressView"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_episodesLabelTxt"
-                    app:setProgressVisibility="@{viewModel.episodeListStatus}" />
-
-                <TextView
-                    android:id="@+id/anime_episodesErrorTxt"
-                    message="@{viewModel.episodeListError}"
-                    status="@{viewModel.episodeListStatus}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_episodesLabelTxt"
                     tools:text="Error text" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -214,10 +138,10 @@
                     android:id="@+id/anime_trendingRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:paddingStart="16dp"
+                    android:paddingEnd="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
