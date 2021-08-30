@@ -11,6 +11,7 @@ import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.AnimeAdapter
 import github.ardondev.apuri.adapters.CategoryAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeBinding
+import github.ardondev.apuri.network.models.Anime
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.setError
 import org.koin.android.ext.android.inject
@@ -53,14 +54,19 @@ class AnimeFragment : Fragment() {
 
         //See more anime button
         mBinding.animeSeeMoreButton.setOnClickListener {
-            findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment())
+            findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
+                category = null
+            ))
         }
 
     }
 
     private fun setCategoryAdapter() {
+        //Open all anime fragment sending the category slug to filter them
         mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category ->
-
+            findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
+                category = category.attributes?.slug
+            ))
         })
         mBinding.animeCategoriesRecyclerView.adapter = mCategoryAdapter
     }

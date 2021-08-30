@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import github.ardondev.apuri.network.models.Anime
+import github.ardondev.apuri.network.models.Category
 import github.ardondev.apuri.repository.AppRepository
 import github.ardondev.apuri.utils.Status
 import kotlinx.coroutines.flow.Flow
 
 class AnimeAllViewModel(
-    private val appRepository: AppRepository
+    private val appRepository: AppRepository,
+    private val category: String?
 ): ViewModel() {
 
     //Search query
@@ -37,7 +39,7 @@ class AnimeAllViewModel(
     }
 
     fun getAllAnime(): Flow<PagingData<Anime>> {
-        return appRepository.getAllAnime(searchQuery.value).cachedIn(viewModelScope)
+        return appRepository.getAllAnime(searchQuery.value, category).cachedIn(viewModelScope)
     }
 
 

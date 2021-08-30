@@ -27,6 +27,11 @@
         android:id="@+id/animeAllFragment"
         android:name="github.ardondev.apuri.ui.anime_all.AnimeAllFragment"
         android:label="fragment_anime_all"
-        tools:layout="@layout/fragment_anime_all"/>
+        tools:layout="@layout/fragment_anime_all">
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 
 </navigation>

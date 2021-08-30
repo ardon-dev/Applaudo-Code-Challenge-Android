@@ -11,8 +11,8 @@ val viewModelModule = module {
         AnimeViewModel(get())
     }
 
-    viewModel {
-        AnimeAllViewModel(get())
+    viewModel { (category: String) ->
+        AnimeAllViewModel(get(), category)
     }
 
 }

@@ -7,7 +7,8 @@ import github.ardondev.apuri.network.models.Anime
 
 class AnimePagingDataSource(
     private val apiService: ApiService,
-    private val search: String?
+    private val search: String?,
+    private val category: String?
 ) : PagingSource<Int, Anime>() {
 
     override fun getRefreshKey(state: PagingState<Int, Anime>): Int? {
@@ -29,6 +30,11 @@ class AnimePagingDataSource(
                 offset = offsetMap,
                 search = if (search != null) {
                     HashMap<String, String>().apply { put("filter[text]", search) }
+                } else {
+                    HashMap()
+                },
+                category = if (category != null) {
+                    HashMap<String, String>().apply { put("filter[categories]", category) }
                 } else {
                     HashMap()
                 }

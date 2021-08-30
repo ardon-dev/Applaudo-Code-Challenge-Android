@@ -16,7 +16,7 @@ interface AppRepository {
 
     suspend fun getAnimeTrending(): Result<AnimeListResponse>
 
-    fun getAllAnime(search: String?): Flow<PagingData<Anime>>
+    fun getAllAnime(search: String?, category: String?): Flow<PagingData<Anime>>
 
     suspend fun getCategories(): Result<CategoryListResponse>
 

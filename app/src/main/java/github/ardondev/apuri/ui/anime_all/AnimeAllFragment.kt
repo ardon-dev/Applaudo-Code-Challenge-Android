@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import github.ardondev.apuri.adapters.AnimeAdapter
 import github.ardondev.apuri.adapters.AnimePagingAdapter
@@ -16,11 +17,15 @@ import github.ardondev.apuri.utils.Status
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class AnimeAllFragment : Fragment() {
 
     private lateinit var mBinding: FragmentAnimeAllBinding
-    private val mViewModel: AnimeAllViewModel by inject()
+    private val mArgs: AnimeAllFragmentArgs by navArgs()
+    private val mViewModel: AnimeAllViewModel by inject {
+        parametersOf(mArgs.category)
+    }
     private lateinit var mAnimePagingAdapter: AnimePagingAdapter
 
     override fun onCreateView(

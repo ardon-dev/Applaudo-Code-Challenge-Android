@@ -40,13 +40,14 @@ class AppDataSource(
         }
     }
 
-    override fun getAllAnime(search: String?): Flow<PagingData<Anime>> {
+    override fun getAllAnime(search: String?, category: String?): Flow<PagingData<Anime>> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
                 AnimePagingDataSource(
                     apiService = apiService,
-                    search = search
+                    search = search,
+                    category = category
                 )
             }
         ).flow
