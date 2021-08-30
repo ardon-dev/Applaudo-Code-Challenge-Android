@@ -5,17 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.AnimeAdapter
 import github.ardondev.apuri.adapters.AnimePagingAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeAllBinding
-import github.ardondev.apuri.ui.anime.AnimeViewModel
 import github.ardondev.apuri.utils.Status
-import github.ardondev.apuri.utils.setError
-import github.ardondev.apuri.utils.setGone
-import github.ardondev.apuri.utils.setVisible
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -39,7 +36,9 @@ class AnimeAllFragment : Fragment() {
     }
 
     private fun initFlow() {
+        setObservers()
         setAnimePagingAdapter()
+        setupSearchView()
     }
 
 
@@ -77,6 +76,22 @@ class AnimeAllFragment : Fragment() {
 
     }
 
+    private fun setupSearchView() {
+        mBinding.animeAllSearchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                mViewModel.searchQuery.postValue(p0)
+                return true
+            }
+            override fun onQueryTextChange(p0: String?): Boolean {
+                if (p0?.isEmpty() == true) {
+                    mViewModel.searchQuery.postValue(null)
+                    getAllAnime()
+                }
+                return true
+            }
+        })
+    }
+
 
     /*
     REQUESTS
@@ -88,6 +103,20 @@ class AnimeAllFragment : Fragment() {
                 mAnimePagingAdapter.submitData(animeList)
             }
         }
+    }
+
+
+    /*
+    OBSERVERS
+     */
+
+    private fun setObservers() {
+
+        //Search query
+        mViewModel.searchQuery.observe(viewLifecycleOwner, Observer { searchQuery ->
+            getAllAnime()
+        })
+
     }
 
 }

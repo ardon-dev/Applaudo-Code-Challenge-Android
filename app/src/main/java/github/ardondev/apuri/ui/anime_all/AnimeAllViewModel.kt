@@ -15,6 +15,11 @@ class AnimeAllViewModel(
     private val appRepository: AppRepository
 ): ViewModel() {
 
+    //Search query
+
+    val searchQuery = MutableLiveData<String?>()
+
+
     //Anime
 
     private val _animeListStatus = MutableLiveData<Status>()
@@ -32,7 +37,12 @@ class AnimeAllViewModel(
     }
 
     fun getAllAnime(): Flow<PagingData<Anime>> {
-        return appRepository.getAllAnime().cachedIn(viewModelScope)
+        return appRepository.getAllAnime(searchQuery.value).cachedIn(viewModelScope)
+    }
+
+
+    init {
+        searchQuery.postValue(null)
     }
 
 }
