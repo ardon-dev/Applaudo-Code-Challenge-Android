@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.AnimeAdapter
+import github.ardondev.apuri.adapters.CategoryAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeBinding
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.setError
@@ -19,6 +20,7 @@ class AnimeFragment : Fragment() {
     private lateinit var mBinding: FragmentAnimeBinding
     private val mViewModel: AnimeViewModel by inject()
 
+    private lateinit var mCategoryAdapter: CategoryAdapter
     private lateinit var mAnimeAdapter: AnimeAdapter
     private lateinit var mAnimeTrendingAdapter: AnimeAdapter
 
@@ -36,6 +38,7 @@ class AnimeFragment : Fragment() {
 
     private fun initFlow() {
         setObservers()
+        setCategoryAdapter()
         setAnimeAdapter()
         setAnimeTrendingAdapter()
         setOnClickListener()
@@ -53,6 +56,13 @@ class AnimeFragment : Fragment() {
             findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment())
         }
 
+    }
+
+    private fun setCategoryAdapter() {
+        mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category ->
+
+        })
+        mBinding.animeCategoriesRecyclerView.adapter = mCategoryAdapter
     }
 
     private fun setAnimeAdapter() {
@@ -75,6 +85,22 @@ class AnimeFragment : Fragment() {
      */
 
     private fun setObservers() {
+
+        //Category
+
+        mViewModel.categoryListResponse.observe(viewLifecycleOwner, Observer { response ->
+            response.data?.let { categoryList ->
+                if (categoryList.isNotEmpty()) {
+                    mCategoryAdapter.submitList(categoryList)
+                } else {
+                    mBinding.animeCategoriesErrorTxt.setError(
+                        status = Status.ERROR,
+                        message = getString(R.string.txt_empty_list)
+                    )
+                }
+            }
+        })
+
 
         //Anime
 

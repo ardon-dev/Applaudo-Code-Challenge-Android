@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import github.ardondev.apuri.network.response.AnimeListResponse
+import github.ardondev.apuri.network.response.CategoryListResponse
 import github.ardondev.apuri.network.response.EpisodeListResponse
 import github.ardondev.apuri.repository.AppRepository
 import github.ardondev.apuri.utils.Status
@@ -119,9 +120,43 @@ class AnimeViewModel(
 
     }
 
+
+    //Categories
+
+    private val _categoryListStatus = MutableLiveData<Status>()
+    val categoryListStatus: LiveData<Status>
+        get() = _categoryListStatus
+
+    private val _categoryListResponse = MutableLiveData<CategoryListResponse>()
+    val categoryListResponse: LiveData<CategoryListResponse>
+        get() = _categoryListResponse
+
+    private val _categoryListError = MutableLiveData<String>()
+    val categoryListError: LiveData<String>
+        get() = _categoryListError
+
+    fun getCategories() {
+        viewModelScope.launch {
+            _categoryListStatus.postValue(Status.LOADING)
+            val result = appRepository.getCategories()
+
+            if (result.succeeded) {
+                _categoryListResponse.postValue(result.getData())
+                _categoryListStatus.postValue(Status.SUCCESS)
+
+            } else {
+                _categoryListError.postValue(result.getError().message)
+                _categoryListStatus.postValue(Status.ERROR)
+
+            }
+
+        }
+
+    }
+
     init {
+        getCategories()
         getAnime()
-        getEpisodes()
         getAnimeTrending()
     }
 

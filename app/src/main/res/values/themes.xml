@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Apuri" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Apuri" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -22,6 +22,7 @@
     </style>
 
     <style name="Apuri.ShadowText" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/white</item>
         <item name="android:shadowColor">@color/black</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>

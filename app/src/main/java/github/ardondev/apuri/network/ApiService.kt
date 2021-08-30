@@ -1,6 +1,7 @@
 package github.ardondev.apuri.network
 
 import github.ardondev.apuri.network.response.AnimeListResponse
+import github.ardondev.apuri.network.response.CategoryListResponse
 import github.ardondev.apuri.network.response.EpisodeListResponse
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
@@ -22,5 +23,8 @@ interface ApiService {
         @QueryMap offset: Map<String, Int>?,
         @QueryMap search: Map<String, String>?
     ): AnimeListResponse
+
+    @GET("categories")
+    suspend fun getCategories(): CategoryListResponse
 
 }
