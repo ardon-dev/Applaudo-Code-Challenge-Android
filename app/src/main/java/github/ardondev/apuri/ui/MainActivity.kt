@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
      */
 
     private fun setupNavigation() {
-        //Disable icon tint
-        mBinding.mainBottomNavView.itemIconTintList = null
         //Set navigation with bottom nav view
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_hostFragment) as NavHostFragment
         val navController = navHostFragment.navController

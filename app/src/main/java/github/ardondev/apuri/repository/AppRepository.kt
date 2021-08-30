@@ -2,6 +2,7 @@ package github.ardondev.apuri.repository
 
 import androidx.paging.PagingData
 import github.ardondev.apuri.network.models.Anime
+import github.ardondev.apuri.network.models.Category
 import github.ardondev.apuri.network.response.AnimeListResponse
 import github.ardondev.apuri.network.response.CategoryListResponse
 import github.ardondev.apuri.network.response.EpisodeListResponse
@@ -19,5 +20,7 @@ interface AppRepository {
     fun getAllAnime(search: String?, category: String?): Flow<PagingData<Anime>>
 
     suspend fun getCategories(): Result<CategoryListResponse>
+
+    fun getAllCategories(search: String?): Flow<PagingData<Category>>
 
 }

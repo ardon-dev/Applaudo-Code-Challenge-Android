@@ -54,9 +54,16 @@ class AnimeFragment : Fragment() {
 
         //See more anime button
         mBinding.animeSeeMoreButton.setOnClickListener {
-            findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
-                category = null
-            ))
+            findNavController().navigate(
+                AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
+                    category = null
+                )
+            )
+        }
+
+        //See more categories button
+        mBinding.animeCategoriesSeeMoreButton.setOnClickListener {
+            findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToCategoriesFragment())
         }
 
     }
@@ -64,9 +71,11 @@ class AnimeFragment : Fragment() {
     private fun setCategoryAdapter() {
         //Open all anime fragment sending the category slug to filter them
         mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category ->
-            findNavController().navigate(AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
-                category = category.attributes?.slug
-            ))
+            findNavController().navigate(
+                AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
+                    category = category.attributes?.slug
+                )
+            )
         })
         mBinding.animeCategoriesRecyclerView.adapter = mCategoryAdapter
     }

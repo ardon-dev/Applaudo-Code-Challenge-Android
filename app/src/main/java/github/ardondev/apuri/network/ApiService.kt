@@ -28,4 +28,11 @@ interface ApiService {
     @GET("categories")
     suspend fun getCategories(): CategoryListResponse
 
+    @GET("categories")
+    suspend fun getAllCategories(
+        @QueryMap limit: Map<String, Int>?,
+        @QueryMap offset: Map<String, Int>?,
+        @QueryMap search: Map<String, String>?
+    ): CategoryListResponse
+
 }

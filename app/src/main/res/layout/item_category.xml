@@ -12,6 +12,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/categoryItem_parentLyt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="16dp"
@@ -22,11 +23,13 @@
         app:strokeWidth="2dp">
 
         <TextView
+            android:id="@+id/categoryItem_titleTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
             tools:text="Category name"
             android:gravity="center"
+            android:ellipsize="end"
             android:text="@{category.attributes.title}"
             android:padding="16dp"/>
 
