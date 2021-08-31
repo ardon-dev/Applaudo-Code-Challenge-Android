@@ -9,4 +9,5 @@
     <color name="black_50">#80000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_50">#80FFFFFF</color>
+    <color name="search_background">#F5f5f5</color>
 </resources>

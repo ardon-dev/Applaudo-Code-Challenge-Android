@@ -1,5 +1,6 @@
 package github.ardondev.apuri.ui.anime_detail
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,10 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.EpisodeAdapter
 import github.ardondev.apuri.adapters.GenreAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeDetailBinding
+import github.ardondev.apuri.databinding.LayoutEpisodeDetailBinding
+import github.ardondev.apuri.network.models.Episode
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.setError
 import org.koin.android.ext.android.inject
@@ -67,8 +71,26 @@ class AnimeDetailFragment : Fragment() {
     }
 
     private fun setEpisodeAdapter() {
-        mEpisodeAdapter = EpisodeAdapter()
+        mEpisodeAdapter = EpisodeAdapter(EpisodeAdapter.OnEpisodeClickListener { episode ->
+            showEpisodeDetailBottomSheet(episode)
+        })
         mBinding.animeDetailEpisodesRecyclerView.adapter = mEpisodeAdapter
+    }
+
+    private fun showEpisodeDetailBottomSheet(episode: Episode) {
+        val binding = LayoutEpisodeDetailBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        ).apply {
+            this.episode = episode
+        }
+        val bottomSheet = BottomSheetDialog(requireContext()).apply {
+            setContentView(binding.root)
+            setCancelable(false)
+        }
+        binding.episodeDetailCloseBtn.setOnClickListener {
+            bottomSheet.dismiss()
+        }
+        bottomSheet.show()
     }
 
 

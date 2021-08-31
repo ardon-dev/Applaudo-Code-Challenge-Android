@@ -39,6 +39,7 @@ class CategoriesFragment : Fragment() {
 
     private fun initFlow() {
         setCategoryPagingAdapter()
+        setOnClickListener()
     }
 
 
@@ -46,10 +47,20 @@ class CategoriesFragment : Fragment() {
     UI
      */
 
+    private fun setOnClickListener() {
+
+        //Back button
+        mBinding.categoriesToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+    }
+
     private fun setCategoryPagingAdapter() {
         mCategoryPagingAdapter = CategoryPagingAdapter(CategoryAdapter.OnCategoryClickListener { category ->
             findNavController().navigate(CategoriesFragmentDirections.actionCategoriesFragmentToAnimeAllFragment(
-                category = category.attributes?.slug
+                category = category.attributes?.slug,
+                categoryName = category.attributes?.title
             ))
         }).apply {
             //State listener

@@ -37,6 +37,7 @@ class AnimeAllFragment : Fragment() {
         mBinding = FragmentAnimeAllBinding.inflate(inflater).apply {
             lifecycleOwner = this@AnimeAllFragment
             viewModel = this@AnimeAllFragment.mViewModel
+            categoryName = this@AnimeAllFragment.mArgs.categoryName
         }
         initFlow()
         return mBinding.root

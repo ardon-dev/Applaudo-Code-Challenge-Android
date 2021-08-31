@@ -56,7 +56,8 @@ class AnimeFragment : Fragment() {
         mBinding.animeSeeMoreButton.setOnClickListener {
             findNavController().navigate(
                 AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
-                    category = null
+                    category = null,
+                    categoryName = null
                 )
             )
         }
@@ -73,7 +74,8 @@ class AnimeFragment : Fragment() {
         mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category ->
             findNavController().navigate(
                 AnimeFragmentDirections.actionAnimeFragmentToAnimeAllFragment(
-                    category = category.attributes?.slug
+                    category = category.attributes?.slug,
+                    categoryName = category.attributes?.title
                 )
             )
         })

@@ -26,6 +26,7 @@
             android:id="@+id/animeDetail_appBarLyt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -33,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
-                app:navigationIconTint="@color/white"
                 tools:title="@string/app_name"
                 app:title="@{anime.attributes.canonicalTitle}" />
 
@@ -90,7 +90,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:tint="@color/white_50" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

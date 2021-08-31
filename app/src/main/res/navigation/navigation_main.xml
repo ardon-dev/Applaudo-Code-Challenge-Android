@@ -42,6 +42,11 @@
             app:argType="string"
             app:nullable="true"/>
 
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            app:nullable="true"/>
+
         <action
             android:id="@+id/action_animeAllFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment"/>

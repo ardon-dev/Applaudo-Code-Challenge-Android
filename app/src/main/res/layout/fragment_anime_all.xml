@@ -6,70 +6,99 @@
     <data>
 
         <variable
+            name="categoryName"
+            type="String"/>
+
+        <variable
             name="viewModel"
             type="github.ardondev.apuri.ui.anime_all.AnimeAllViewModel" />
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.anime_all.AnimeAllFragment">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/animeAll_searchView"
-            android:layout_width="0dp"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/animeAll_appBarLyt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="@string/txt_search_anime"/>
+            android:background="@color/white"
+            app:liftOnScroll="true">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/animeAll_recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingStart="16dp"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/animeAll_errorTxt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animeAll_searchView"
-            app:spanCount="3"
-            tools:listitem="@layout/item_anime" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/animeAll_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+                app:title="@{categoryName != null ? categoryName : @string/txt_all_anime}"
+                app:layout_scrollFlags="scroll|enterAlways"/>
 
-        <TextView
-            android:id="@+id/animeAll_errorTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            app:layout_constraintBottom_toTopOf="@id/animeAll_progressView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animeAll_recyclerView"
-            tools:text="Error text"
-            android:visibility="gone"
-            status="@{viewModel.animeListStatus}"
-            message="@{viewModel.animeListError}"/>
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/animeAll_searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryHint="@string/txt_search_anime"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/bg_search_view"
+                app:queryBackground="@android:color/transparent"
+                android:layout_marginVertical="8dp"/>
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/animeAll_progressView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animeAll_errorTxt"
-            android:visibility="gone"
-            app:setProgressVisibility="@{viewModel.animeListStatus}" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/animeAll_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingStart="16dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/animeAll_errorTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:spanCount="3"
+                tools:listitem="@layout/item_anime" />
+
+            <TextView
+                android:id="@+id/animeAll_errorTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toTopOf="@id/animeAll_progressView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/animeAll_recyclerView"
+                tools:text="Error text"
+                android:visibility="gone"
+                status="@{viewModel.animeListStatus}"
+                message="@{viewModel.animeListError}"/>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/animeAll_progressView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/animeAll_errorTxt"
+                android:visibility="gone"
+                app:setProgressVisibility="@{viewModel.animeListStatus}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

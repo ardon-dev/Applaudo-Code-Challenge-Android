@@ -9,7 +9,9 @@ import github.ardondev.apuri.databinding.ItemEpisodeBinding
 import github.ardondev.apuri.network.models.Episode
 import github.ardondev.apuri.utils.GenericAdapter
 
-class EpisodeAdapter() : GenericAdapter<List<Episode>>,
+class EpisodeAdapter(
+    private val onEpisodeClickListener: OnEpisodeClickListener
+) : GenericAdapter<List<Episode>>,
     ListAdapter<Episode, EpisodeAdapter.EpisodeViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Episode>() {
@@ -19,6 +21,10 @@ class EpisodeAdapter() : GenericAdapter<List<Episode>>,
         override fun areItemsTheSame(oldItem: Episode, newItem: Episode): Boolean {
             return oldItem === newItem
         }
+    }
+
+    class OnEpisodeClickListener(private val clickListener: (episode: Episode) -> Unit) {
+        fun onClick(episode: Episode) = clickListener(episode)
     }
 
     class EpisodeViewHolder(private val binding: ItemEpisodeBinding) :
@@ -49,6 +55,9 @@ class EpisodeAdapter() : GenericAdapter<List<Episode>>,
     override fun onBindViewHolder(holder: EpisodeAdapter.EpisodeViewHolder, position: Int) {
         val episode = getItem(position)
         holder.bind(episode)
+        holder.itemView.setOnClickListener {
+            onEpisodeClickListener.onClick(episode)
+        }
     }
 
 }

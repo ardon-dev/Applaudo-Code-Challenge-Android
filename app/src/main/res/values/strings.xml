@@ -23,4 +23,8 @@
     <string name="txt_status_bind">Status: %1$s</string>
     <string name="txt_start_date_bind">Start date: %1$s</string>
     <string name="txt_end_date_bind">End date: %1$s</string>
+    <string name="txt_air_date_bind">Air date: %1$s</string>
+    <string name="txt_synopsis_bind">Synopsis: %1$s</string>
+    <string name="txt_episode_title_bind">S%1$s: Ep %2$s - %3$s</string>
+    <string name="txt_all_anime">All anime</string>
 </resources>
