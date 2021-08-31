@@ -6,10 +6,7 @@ import androidx.paging.PagingData
 import github.ardondev.apuri.network.ApiService
 import github.ardondev.apuri.network.models.Anime
 import github.ardondev.apuri.network.models.Category
-import github.ardondev.apuri.network.response.AnimeListResponse
-import github.ardondev.apuri.network.response.CategoryListResponse
-import github.ardondev.apuri.network.response.EpisodeListResponse
-import github.ardondev.apuri.network.response.GenreListResponse
+import github.ardondev.apuri.network.response.*
 import github.ardondev.apuri.repository.paging.AnimePagingDataSource
 import github.ardondev.apuri.repository.paging.CategoryPagingDataSource
 import github.ardondev.apuri.utils.Result
@@ -79,6 +76,14 @@ class AppDataSource(
     override suspend fun getAnimeEpisodes(id: String): Result<EpisodeListResponse> {
         return try {
             Result.Success(apiService.getAnimeEpisodes(id))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getManga(): Result<MangaListResponse> {
+        return try {
+            Result.Success(apiService.getManga())
         } catch (e: Exception) {
             Result.Error(e)
         }

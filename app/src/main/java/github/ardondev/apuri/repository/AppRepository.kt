@@ -3,10 +3,7 @@ package github.ardondev.apuri.repository
 import androidx.paging.PagingData
 import github.ardondev.apuri.network.models.Anime
 import github.ardondev.apuri.network.models.Category
-import github.ardondev.apuri.network.response.AnimeListResponse
-import github.ardondev.apuri.network.response.CategoryListResponse
-import github.ardondev.apuri.network.response.EpisodeListResponse
-import github.ardondev.apuri.network.response.GenreListResponse
+import github.ardondev.apuri.network.response.*
 import github.ardondev.apuri.utils.Result
 import kotlinx.coroutines.flow.Flow
 
@@ -25,5 +22,7 @@ interface AppRepository {
     suspend fun getAnimeGenres(id: String): Result<GenreListResponse>
 
     suspend fun getAnimeEpisodes(id: String): Result<EpisodeListResponse>
+
+    suspend fun getManga(): Result<MangaListResponse>
 
 }

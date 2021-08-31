@@ -1,9 +1,6 @@
 package github.ardondev.apuri.network
 
-import github.ardondev.apuri.network.response.AnimeListResponse
-import github.ardondev.apuri.network.response.CategoryListResponse
-import github.ardondev.apuri.network.response.EpisodeListResponse
-import github.ardondev.apuri.network.response.GenreListResponse
+import github.ardondev.apuri.network.response.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
@@ -43,5 +40,8 @@ interface ApiService {
     suspend fun getAnimeGenres(
         @Path("id") id: String
     ): GenreListResponse
+
+    @GET("manga")
+    suspend fun getManga(): MangaListResponse
 
 }
