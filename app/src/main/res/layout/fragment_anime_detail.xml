@@ -83,6 +83,7 @@
                             app:layout_constraintEnd_toEndOf="parent"/>
 
                         <ImageButton
+                            android:id="@+id/animeDetail_playBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:srcCompat="@drawable/ic_round_play_circle_24"

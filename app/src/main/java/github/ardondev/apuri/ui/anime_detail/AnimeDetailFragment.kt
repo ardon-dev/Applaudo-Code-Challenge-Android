@@ -17,6 +17,7 @@ import github.ardondev.apuri.databinding.FragmentAnimeDetailBinding
 import github.ardondev.apuri.databinding.LayoutEpisodeDetailBinding
 import github.ardondev.apuri.network.models.Episode
 import github.ardondev.apuri.utils.Status
+import github.ardondev.apuri.utils.openInYT
 import github.ardondev.apuri.utils.setError
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -61,6 +62,11 @@ class AnimeDetailFragment : Fragment() {
         //Back button
         mBinding.animeDetailToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+
+        //Play button
+        mBinding.animeDetailPlayBtn.setOnClickListener {
+            requireActivity().openInYT(mArgs.anime?.attributes?.youtubeVideoId ?: "")
         }
 
     }

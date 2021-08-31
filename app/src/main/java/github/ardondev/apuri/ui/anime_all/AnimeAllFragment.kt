@@ -14,7 +14,6 @@ import androidx.paging.LoadState
 import github.ardondev.apuri.adapters.AnimeAdapter
 import github.ardondev.apuri.adapters.AnimePagingAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeAllBinding
-import github.ardondev.apuri.ui.anime.AnimeFragmentDirections
 import github.ardondev.apuri.utils.Status
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

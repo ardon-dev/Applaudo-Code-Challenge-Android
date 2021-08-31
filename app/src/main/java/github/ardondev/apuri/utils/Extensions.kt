@@ -1,6 +1,9 @@
 package github.ardondev.apuri.utils
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.Resources
+import android.net.Uri
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.LinearLayout
@@ -37,4 +40,14 @@ fun View.setFullWidth(
 fun Int.toDp(): Int {
     val displayMetrics = Resources.getSystem().displayMetrics
     return (this * (displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
+}
+
+//Intents
+
+fun Activity.openInYT(videoId: String?) {
+    videoId?.let {
+        startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$it"))
+        )
+    }
 }
