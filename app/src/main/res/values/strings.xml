@@ -11,8 +11,9 @@
     <string name="txt_search_anime">Search anime</string>
     <string name="txt_categories">Categories</string>
     <string name="txt_search_categories">Search categories</string>
-    <string name="txt_type_bind">Type\n%1$s</string>
-    <string name="txt_average_rating_bind">Average rating: %1$s%</string>
+    <string name="txt_type_bind">Type: %1$s</string>
+    <string name="txt_average_rating_bind">(%1$s)%</string>
+    <string name="txt_average_rating">Average rating</string>
     <string name="txt_age_rating_bind">Age rating: %1$s</string>
     <string name="txt_years_bind">%1$s - %2$s (%3$s)</string>
     <string name="txt_genres">Genres</string>
@@ -27,4 +28,5 @@
     <string name="txt_synopsis_bind">Synopsis: %1$s</string>
     <string name="txt_episode_title_bind">S%1$s: Ep %2$s - %3$s</string>
     <string name="txt_all_anime">All anime</string>
+    <string name="txt_volume_count_bind">Volume count: %1$s</string>
 </resources>

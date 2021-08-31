@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.CategoryAdapter
 import github.ardondev.apuri.adapters.MangaAdapter
@@ -52,12 +53,22 @@ class MangaFragment : Fragment() {
     }
 
     private fun setMangaAdapter() {
-        mMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->  })
+        mMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->
+            //Navigate to details
+            findNavController().navigate(MangaFragmentDirections.actionMangaFragmentToMangaDetailFragment(
+                manga
+            ))
+        })
         mBinding.mangaRecyclerView.adapter = mMangaAdapter
     }
 
     private fun setTrendingMangaAdapter() {
-        mTrendingMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->  })
+        mTrendingMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->
+            //Navigate to details
+            findNavController().navigate(MangaFragmentDirections.actionMangaFragmentToMangaDetailFragment(
+                manga
+            ))
+        })
         mBinding.mangaTrendingRecyclerView.adapter = mTrendingMangaAdapter
     }
 

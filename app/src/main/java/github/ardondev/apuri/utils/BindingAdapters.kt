@@ -4,11 +4,13 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import github.ardondev.apuri.R
 import github.ardondev.apuri.network.models.Anime
+import github.ardondev.apuri.network.models.Manga
 
 @BindingAdapter("app:setRemoteImage")
 fun ImageView.setRemoteImage(url: String?) {
@@ -67,5 +69,27 @@ fun TextView.setAnimeStatus(anime: Anime?) {
         }
         val status = it.attributes?.status
         this.text = "$startYear $endYear ($status)"
+    }
+}
+
+@BindingAdapter("app:setMangaStatus")
+fun TextView.setMangaStatus(manga: Manga?) {
+    manga?.let {
+        val startYear = it.attributes?.startDate?.substring(0, 4)
+        val endYear = if (it.attributes?.endDate != null) {
+            "- ${it.attributes.endDate.substring(0, 4)}"
+        } else {
+            ""
+        }
+        val status = it.attributes?.status
+        this.text = "$startYear $endYear ($status)"
+    }
+}
+
+@BindingAdapter("app:setRating")
+fun AppCompatRatingBar.setRating(rating: String?) {
+    rating?.let {
+        this.max = 100
+        this.progress = it.toDouble().toInt()
     }
 }
