@@ -1,8 +1,11 @@
 package github.ardondev.apuri.network.models
+
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
-
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Anime(
     @Json(name = "attributes")
@@ -11,8 +14,9 @@ data class Anime(
     val id: String?,
     @Json(name = "type")
     val type: String?
-) {
+): Parcelable {
 
+    @Parcelize
     @JsonClass(generateAdapter = true)
     data class Attributes(
         @Json(name = "abbreviatedTitles")
@@ -41,8 +45,6 @@ data class Anime(
         val episodeLength: Int?,
         @Json(name = "favoritesCount")
         val favoritesCount: Int?,
-        @Json(name = "nextRelease")
-        val nextRelease: Any?,
         @Json(name = "nsfw")
         val nsfw: Boolean?,
         @Json(name = "popularityRank")
@@ -63,8 +65,6 @@ data class Anime(
         val subtype: String?,
         @Json(name = "synopsis")
         val synopsis: String?,
-        @Json(name = "tba")
-        val tba: Any?,
         @Json(name = "titles")
         val titles: Titles?,
         @Json(name = "totalLength")
@@ -75,8 +75,9 @@ data class Anime(
         val userCount: Int?,
         @Json(name = "youtubeVideoId")
         val youtubeVideoId: String?
-    ) {
+    ): Parcelable {
 
+        @Parcelize
         @JsonClass(generateAdapter = true)
         data class CoverImage(
             @Json(name = "large")
@@ -87,8 +88,9 @@ data class Anime(
             val small: String?,
             @Json(name = "tiny")
             val tiny: String?
-        )
+        ): Parcelable
 
+        @Parcelize
         @JsonClass(generateAdapter = true)
         data class PosterImage(
             @Json(name = "large")
@@ -101,8 +103,9 @@ data class Anime(
             val small: String?,
             @Json(name = "tiny")
             val tiny: String?
-        )
+        ): Parcelable
 
+        @Parcelize
         @JsonClass(generateAdapter = true)
         data class Titles(
             @Json(name = "en")
@@ -111,7 +114,7 @@ data class Anime(
             val enJp: String?,
             @Json(name = "ja_jp")
             val jaJp: String?
-        )
+        ): Parcelable
 
     }
 

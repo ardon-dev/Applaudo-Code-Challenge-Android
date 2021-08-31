@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import github.ardondev.apuri.R
-import kotlin.random.Random
+import github.ardondev.apuri.network.models.Anime
 
 @BindingAdapter("app:setRemoteImage")
 fun ImageView.setRemoteImage(url: String?) {
@@ -53,5 +53,19 @@ fun MaterialCardView.setRandomStrokeColor(colorize: Boolean?) {
         val randomNumber = java.util.Random().nextInt(0xffffff + 1)
         val color = String.format("#%06x", randomNumber)
         this.strokeColor = Color.parseColor(color)
+    }
+}
+
+@BindingAdapter("app:setAnimeStatus")
+fun TextView.setAnimeStatus(anime: Anime?) {
+    anime?.let {
+        val startYear = it.attributes?.startDate?.substring(0, 4)
+        val endYear = if (it.attributes?.endDate != null) {
+            "- ${it.attributes.endDate.substring(0, 4)}"
+        } else {
+            ""
+        }
+        val status = it.attributes?.status
+        this.text = "$startYear $endYear ($status)"
     }
 }

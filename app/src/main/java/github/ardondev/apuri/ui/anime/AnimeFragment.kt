@@ -83,13 +83,19 @@ class AnimeFragment : Fragment() {
     private fun setAnimeAdapter() {
         mAnimeAdapter = AnimeAdapter(AnimeAdapter.OnAnimeClickListener { anime ->
             //Navigate to detail
+            findNavController().navigate(
+                AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailFragment(anime)
+            )
         })
         mBinding.animeRecyclerView.adapter = mAnimeAdapter
     }
 
     private fun setAnimeTrendingAdapter() {
         mAnimeTrendingAdapter = AnimeAdapter((AnimeAdapter.OnAnimeClickListener { anime ->
-
+            //Navigate to detail
+            findNavController().navigate(
+                AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailFragment(anime)
+            )
         }))
         mBinding.animeTrendingRecyclerView.adapter = mAnimeTrendingAdapter
     }

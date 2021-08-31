@@ -11,4 +11,10 @@
     <string name="txt_search_anime">Search anime</string>
     <string name="txt_categories">Categories</string>
     <string name="txt_search_categories">Search categories</string>
+    <string name="txt_type_bind">Type\n%1$s</string>
+    <string name="txt_average_rating_bind">Average rating\n%1$s</string>
+    <string name="txt_age_rating_bind">Age rating\n%1$s</string>
+    <string name="txt_years_bind">%1$s - %2$s (%3$s)</string>
+    <string name="txt_genres">Genres</string>
+    <string name="txt_play_video">Play video</string>
 </resources>

@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import github.ardondev.apuri.adapters.AnimeAdapter
 import github.ardondev.apuri.adapters.AnimePagingAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeAllBinding
+import github.ardondev.apuri.ui.anime.AnimeFragmentDirections
 import github.ardondev.apuri.utils.Status
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -53,7 +55,10 @@ class AnimeAllFragment : Fragment() {
 
     private fun setAnimePagingAdapter() {
         mAnimePagingAdapter = AnimePagingAdapter(AnimeAdapter.OnAnimeClickListener { anime ->
-
+            //Navigate to detail
+            findNavController().navigate(
+                AnimeAllFragmentDirections.actionAnimeAllFragmentToAnimeDetailFragment(anime)
+            )
         }).apply {
             //State listener
             addLoadStateListener { loadState ->
