@@ -27,8 +27,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:collapsedTitleGravity="start"
-                app:expandedTitleGravity="center"
+                app:expandedTitleGravity="start"
+                app:contentScrim="@color/white"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/bg_manga"
+                    android:scaleType="fitEnd"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_gradient"/>
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/manga_toolbar"
