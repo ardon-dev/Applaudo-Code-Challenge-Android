@@ -1,14 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.manga.MangaFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="github.ardondev.apuri.ui.manga.MangaViewModel"/>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".ui.manga.MangaFragment">
 
-</FrameLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/manga_appBarLyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:collapsedTitleGravity="start"
+                app:expandedTitleGravity="center">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/manga_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:title="@string/txt_manga" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/manga_categoriesLabelTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txt_categories"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintBottom_toTopOf="@id/manga_categoriesRecyclerView"
+                        app:layout_constraintEnd_toStartOf="@id/manga_categoriesSeeMoreButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/manga_categoriesSeeMoreButton"
+                        style="@style/Apuri.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/txt_see_more"
+                        app:icon="@drawable/ic_round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconPadding="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/manga_categoriesLabelTxt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/manga_categoriesLabelTxt"
+                        app:layout_constraintTop_toTopOf="@id/manga_categoriesLabelTxt"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/manga_categoriesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_categoriesLabelTxt"
+                        app:spanCount="2"
+                        tools:listitem="@layout/item_category" />
+
+                    <ProgressBar
+                        android:id="@+id/manga_categoriesProgressView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_categoriesLabelTxt"
+                        app:setProgressVisibility="@{viewModel.categoryListStatus}"/>
+
+                    <TextView
+                        android:id="@+id/manga_categoriesErrorTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_categoriesLabelTxt"
+                        tools:text="Error text"
+                        status="@{viewModel.categoryListStatus}"
+                        message="@{viewModel.categoryListError}"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/manga_labelTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txt_anime"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintBottom_toTopOf="@id/manga_recyclerView"
+                        app:layout_constraintEnd_toStartOf="@id/manga_seeMoreButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/manga_seeMoreButton"
+                        style="@style/Apuri.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/txt_see_more"
+                        app:icon="@drawable/ic_round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconPadding="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/manga_labelTxt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/manga_labelTxt"
+                        app:layout_constraintTop_toTopOf="@id/manga_labelTxt" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/manga_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_labelTxt"
+                        tools:listitem="@layout/item_anime" />
+
+                    <ProgressBar
+                        android:id="@+id/manga_progressView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_labelTxt"/>
+
+                    <TextView
+                        android:id="@+id/manga_errorTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_labelTxt"
+                        tools:text="Error text" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/manga_trendingLabelTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txt_trending"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/manga_trendingRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_trendingLabelTxt"
+                        tools:listitem="@layout/item_anime" />
+
+                    <ProgressBar
+                        android:id="@+id/manga_trendingProgressView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_trendingLabelTxt"/>
+
+                    <TextView
+                        android:id="@+id/manga_trendingErrorTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/manga_trendingLabelTxt"
+                        tools:text="Error text" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
