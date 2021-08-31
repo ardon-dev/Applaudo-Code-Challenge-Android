@@ -13,8 +13,10 @@ interface ApiService {
     @GET("anime")
     suspend fun getAnime(): AnimeListResponse
 
-    @GET("episodes")
-    suspend fun getEpisodes(): EpisodeListResponse
+    @GET("anime/{id}/episodes")
+    suspend fun getAnimeEpisodes(
+        @Path("id") id: String
+    ): EpisodeListResponse
 
     @GET("trending/anime")
     suspend fun getAnimeTrending(): AnimeListResponse
@@ -38,7 +40,7 @@ interface ApiService {
     ): CategoryListResponse
 
     @GET("anime/{id}/genres")
-    suspend fun getGenres(
+    suspend fun getAnimeGenres(
         @Path("id") id: String
     ): GenreListResponse
 

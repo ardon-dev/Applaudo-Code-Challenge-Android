@@ -27,14 +27,6 @@ class AppDataSource(
         }
     }
 
-    override suspend fun getEpisodes(): Result<EpisodeListResponse> {
-        return try {
-            Result.Success(apiService.getEpisodes())
-        } catch (e: Exception) {
-            Result.Error(e)
-        }
-    }
-
     override suspend fun getAnimeTrending(): Result<AnimeListResponse> {
         return try {
             Result.Success(apiService.getAnimeTrending())
@@ -76,9 +68,17 @@ class AppDataSource(
         ).flow
     }
 
-    override suspend fun getGenres(id: String): Result<GenreListResponse> {
+    override suspend fun getAnimeGenres(id: String): Result<GenreListResponse> {
         return try {
-            Result.Success(apiService.getGenres(id))
+            Result.Success(apiService.getAnimeGenres(id))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getAnimeEpisodes(id: String): Result<EpisodeListResponse> {
+        return try {
+            Result.Success(apiService.getAnimeEpisodes(id))
         } catch (e: Exception) {
             Result.Error(e)
         }

@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import github.ardondev.apuri.R
+import github.ardondev.apuri.adapters.EpisodeAdapter
 import github.ardondev.apuri.adapters.GenreAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeDetailBinding
 import github.ardondev.apuri.utils.Status
@@ -24,6 +25,7 @@ class AnimeDetailFragment : Fragment() {
         parametersOf(mArgs.anime?.id)
     }
     private lateinit var mGenreAdapter: GenreAdapter
+    private lateinit var mEpisodeAdapter: EpisodeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,7 @@ class AnimeDetailFragment : Fragment() {
     private fun initFlow() {
         setObservers()
         setGenreAdapter()
+        setEpisodeAdapter()
         setOnClickListeners()
     }
 
@@ -63,6 +66,11 @@ class AnimeDetailFragment : Fragment() {
         mBinding.animeDetailGenresRecyclerView.adapter = mGenreAdapter
     }
 
+    private fun setEpisodeAdapter() {
+        mEpisodeAdapter = EpisodeAdapter()
+        mBinding.animeDetailEpisodesRecyclerView.adapter = mEpisodeAdapter
+    }
+
 
     /*
     OBSERVERS
@@ -78,6 +86,22 @@ class AnimeDetailFragment : Fragment() {
                     mGenreAdapter.submitList(genreList)
                 } else {
                     mBinding.animeDetailGenresErrorTxt.setError(
+                        status = Status.ERROR,
+                        message = getString(R.string.txt_empty_list)
+                    )
+                }
+            }
+        })
+
+
+        //Episodes
+
+        mViewModel.episodeListResponse.observe(viewLifecycleOwner, Observer { response ->
+            response.data?.let { episodeList ->
+                if (episodeList.isNotEmpty()) {
+                    mEpisodeAdapter.submitList(episodeList)
+                } else {
+                    mBinding.animeDetailEpisodesErrorTxt.setError(
                         status = Status.ERROR,
                         message = getString(R.string.txt_empty_list)
                     )

@@ -53,40 +53,6 @@ class AnimeViewModel(
     }
 
 
-    //Episodes
-
-    private val _episodeListStatus = MutableLiveData<Status>()
-    val episodeListStatus: LiveData<Status>
-        get() = _episodeListStatus
-
-    private val _episodeListResponse = MutableLiveData<EpisodeListResponse>()
-    val episodeListResponse: LiveData<EpisodeListResponse>
-        get() = _episodeListResponse
-
-    private val _episodeListError = MutableLiveData<String>()
-    val episodeListError: LiveData<String>
-        get() = _episodeListError
-
-    fun getEpisodes() {
-        viewModelScope.launch {
-            _episodeListStatus.postValue(Status.LOADING)
-            val result = appRepository.getEpisodes()
-
-            if (result.succeeded) {
-                _episodeListResponse.postValue(result.getData())
-                _episodeListStatus.postValue(Status.SUCCESS)
-
-            } else {
-                _episodeListError.postValue(result.getError().message)
-                _episodeListStatus.postValue(Status.ERROR)
-
-            }
-
-        }
-
-    }
-
-
     //Trending
 
     private val _animeTrendingStatus = MutableLiveData<Status>()

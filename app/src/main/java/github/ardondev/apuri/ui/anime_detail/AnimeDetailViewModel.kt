@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import github.ardondev.apuri.network.response.EpisodeListResponse
 import github.ardondev.apuri.network.response.GenreListResponse
 import github.ardondev.apuri.repository.AppRepository
 import github.ardondev.apuri.utils.Status
@@ -31,10 +32,10 @@ class AnimeDetailViewModel(
     val genreListError: LiveData<String>
         get() = _genreListError
 
-    fun getGenres() {
+    fun getAnimeGenres() {
         viewModelScope.launch {
             _genreListStatus.postValue(Status.LOADING)
-            val result = appRepository.getGenres(id ?: "")
+            val result = appRepository.getAnimeGenres(id ?: "")
 
             if (result.succeeded) {
                 _genreListResponse.postValue(result.getData())
@@ -51,8 +52,43 @@ class AnimeDetailViewModel(
     }
 
 
+    //Episodes
+
+    private val _episodeListStatus = MutableLiveData<Status>()
+    val episodeListStatus: LiveData<Status>
+        get() = _episodeListStatus
+
+    private val _episodeListResponse = MutableLiveData<EpisodeListResponse>()
+    val episodeListResponse: LiveData<EpisodeListResponse>
+        get() = _episodeListResponse
+
+    private val _episodeListError = MutableLiveData<String>()
+    val episodeListError: LiveData<String>
+        get() = _episodeListError
+
+    fun getEpisodes() {
+        viewModelScope.launch {
+            _episodeListStatus.postValue(Status.LOADING)
+            val result = appRepository.getAnimeEpisodes(id ?: "")
+
+            if (result.succeeded) {
+                _episodeListResponse.postValue(result.getData())
+                _episodeListStatus.postValue(Status.SUCCESS)
+
+            } else {
+                _episodeListError.postValue(result.getError().message)
+                _episodeListStatus.postValue(Status.ERROR)
+
+            }
+
+        }
+
+    }
+
+
     init {
-        getGenres()
+        getAnimeGenres()
+        getEpisodes()
     }
 
 }

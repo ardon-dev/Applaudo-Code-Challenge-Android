@@ -16,7 +16,10 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_marginEnd="16dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="?attr/colorPrimaryVariant">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +27,8 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             tools:text="Genre"
             android:text="@{genre.attributes.name}"
-            android:padding="8dp"/>
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="12dp"/>
 
     </com.google.android.material.card.MaterialCardView>
 

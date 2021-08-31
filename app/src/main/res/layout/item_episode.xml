@@ -18,13 +18,36 @@
         app:cardElevation="0dp"
         android:layout_marginEnd="16dp">
 
-        <ImageView
-            android:id="@+id/episodeItem_thumbnailImg"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:scaleType="centerCrop"
-            app:setRemoteImage="@{episode.attributes.Thumbnail.original}"/>
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/episodeItem_thumbnailImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:scaleType="centerCrop"
+                app:setRemoteImage="@{episode.attributes.Thumbnail.original}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:textAppearance="@style/Apuri.ShadowText"
+                android:background="@color/black_50"
+                tools:text="Season 1: Ep 12"
+                android:text="@{@string/txt_season_episode_bind(episode.attributes.seasonNumber, episode.attributes.number)}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
