@@ -12,10 +12,15 @@
     <string name="txt_categories">Categories</string>
     <string name="txt_search_categories">Search categories</string>
     <string name="txt_type_bind">Type\n%1$s</string>
-    <string name="txt_average_rating_bind">Average rating\n%1$s</string>
-    <string name="txt_age_rating_bind">Age rating\n%1$s</string>
+    <string name="txt_average_rating_bind">Average rating: %1$s%</string>
+    <string name="txt_age_rating_bind">Age rating: %1$s</string>
     <string name="txt_years_bind">%1$s - %2$s (%3$s)</string>
     <string name="txt_genres">Genres</string>
     <string name="txt_play_video">Play video</string>
     <string name="txt_season_episode_bind">Season %1$s: Ep %2$s</string>
+    <string name="txt_synopsis">Synopsis</string>
+    <string name="txt_general">General</string>
+    <string name="txt_status_bind">Status: %1$s</string>
+    <string name="txt_start_date_bind">Start date: %1$s</string>
+    <string name="txt_end_date_bind">End date: %1$s</string>
 </resources>

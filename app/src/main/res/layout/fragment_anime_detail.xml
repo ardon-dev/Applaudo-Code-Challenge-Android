@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="anime"
             type="github.ardondev.apuri.network.models.Anime" />
@@ -26,43 +28,14 @@
             android:layout_height="wrap_content"
             app:liftOnScroll="true">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/animeDetail_collapsingTbLyt"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/animeDetail_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:collapsedTitleGravity="start"
-                app:collapsedTitleTextAppearance="@style/Apuri.ShadowTitleText"
-                app:expandedTitleGravity="center"
-                app:expandedTitleTextAppearance="@style/Apuri.ShadowTitleText"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
-                        app:setRemoteImage="@{anime.attributes.coverImage.small}" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:background="@color/black_50" />
-
-                </RelativeLayout>
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/animeDetail_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
-                    app:navigationIconTint="@color/white"
-                    app:title="@{anime.attributes.canonicalTitle}" />
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                android:layout_height="?actionBarSize"
+                app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+                app:navigationIconTint="@color/white"
+                tools:title="@string/app_name"
+                app:title="@{anime.attributes.canonicalTitle}" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -75,97 +48,116 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Apuri.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/txt_play_video"
-                    app:icon="@drawable/ic_round_play_circle_24" />
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
-                    app:setRandomStrokeColor="@{true}"
-                    app:strokeWidth="2dp">
+                    android:layout_marginTop="16dp"
+                    android:layout_marginHorizontal="16dp">
 
-                    <TextView
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                        app:setAnimeStatus="@{anime}"
-                        tools:text="1999 - 2020 (finished)" />
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="200dp"
+                            tools:srcCompat="@tools:sample/avatars"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:setRemoteImage="@{anime.attributes.coverImage.small}"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@color/black_50"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_round_play_circle_24"
+                            android:background="?selectableItemBackgroundBorderless"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:setRandomStrokeColor="@{true}"
-                        app:strokeWidth="2dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp"
-                            android:text="@{@string/txt_average_rating_bind(anime.attributes.averageRating)}"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                            tools:text="@string/txt_average_rating_bind" />
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:setRandomStrokeColor="@{true}"
-                        app:strokeWidth="2dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp"
-                            android:text="@{@string/txt_age_rating_bind(anime.attributes.ageRating)}"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                            tools:text="@string/txt_age_rating_bind" />
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/txt_general"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@{anime.attributes.synopsis}"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+                    android:text="@{@string/txt_status_bind(anime.attributes.status)}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    tools:text="@string/txt_status_bind" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/txt_start_date_bind(anime.attributes.startDate)}"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        tools:text="@string/txt_start_date_bind"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/txt_end_date_bind(anime.attributes.endDate)}"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        tools:text="@string/txt_end_date_bind"
+                        android:layout_marginStart="8dp"
+                        android:visibility="@{anime.attributes.endDate != null ? View.VISIBLE : View.GONE}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/txt_age_rating_bind(anime.attributes.ageRating)}"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        tools:text="@string/txt_age_rating_bind"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -277,6 +269,22 @@
                         tools:text="Error text" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/txt_synopsis"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{anime.attributes.synopsis}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
             </LinearLayout>
 
