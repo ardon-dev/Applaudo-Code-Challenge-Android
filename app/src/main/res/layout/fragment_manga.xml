@@ -27,14 +27,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:collapsedTitleGravity="start"
-                app:expandedTitleGravity="center">
+                app:expandedTitleGravity="center"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/manga_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:title="@string/txt_manga" />
+                    app:title="@string/txt_manga"/>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -142,7 +143,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
-                        android:text="@string/txt_anime"
+                        android:text="@string/txt_manga"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         app:layout_constraintBottom_toTopOf="@id/manga_recyclerView"
                         app:layout_constraintEnd_toStartOf="@id/manga_seeMoreButton"
@@ -188,7 +189,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/manga_labelTxt"/>
+                        app:layout_constraintTop_toBottomOf="@id/manga_labelTxt"
+                        app:setProgressVisibility="@{viewModel.mangaListStatus}"/>
 
                     <TextView
                         android:id="@+id/manga_errorTxt"
@@ -201,7 +203,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/manga_labelTxt"
-                        tools:text="Error text" />
+                        tools:text="Error text"
+                        status="@{viewModel.mangaListStatus}"
+                        message="@{viewModel.mangaListError}"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
