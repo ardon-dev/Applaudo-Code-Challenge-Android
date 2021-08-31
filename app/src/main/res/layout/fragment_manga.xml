@@ -28,14 +28,16 @@
                 android:layout_height="200dp"
                 app:collapsedTitleGravity="start"
                 app:expandedTitleGravity="start"
-                app:contentScrim="@color/white"
+                app:contentScrim="@color/actionbar_background"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/bg_manga"
-                    android:scaleType="fitEnd"/>
+                    app:srcCompat="@drawable/img_manga"
+                    android:background="@color/actionbar_background"
+                    android:scaleType="fitEnd"
+                    android:paddingEnd="16dp"/>
 
                 <View
                     android:layout_width="match_parent"

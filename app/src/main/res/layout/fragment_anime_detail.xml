@@ -26,7 +26,7 @@
             android:id="@+id/animeDetail_appBarLyt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/actionbar_background"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
