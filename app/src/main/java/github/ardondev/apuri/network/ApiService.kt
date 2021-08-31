@@ -3,7 +3,9 @@ package github.ardondev.apuri.network
 import github.ardondev.apuri.network.response.AnimeListResponse
 import github.ardondev.apuri.network.response.CategoryListResponse
 import github.ardondev.apuri.network.response.EpisodeListResponse
+import github.ardondev.apuri.network.response.GenreListResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
 interface ApiService {
@@ -34,5 +36,10 @@ interface ApiService {
         @QueryMap offset: Map<String, Int>?,
         @QueryMap search: Map<String, String>?
     ): CategoryListResponse
+
+    @GET("anime/{id}/genres")
+    suspend fun getGenres(
+        @Path("id") id: String
+    ): GenreListResponse
 
 }
