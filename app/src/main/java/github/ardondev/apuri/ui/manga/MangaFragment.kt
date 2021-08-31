@@ -20,6 +20,7 @@ class MangaFragment : Fragment() {
     private val mViewModel: MangaViewModel by inject()
     private lateinit var mCategoryAdapter: CategoryAdapter
     private lateinit var mMangaAdapter: MangaAdapter
+    private lateinit var mTrendingMangaAdapter: MangaAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +38,7 @@ class MangaFragment : Fragment() {
         setObservers()
         setCategoryAdapter()
         setMangaAdapter()
+        setTrendingMangaAdapter()
     }
 
 
@@ -52,6 +54,11 @@ class MangaFragment : Fragment() {
     private fun setMangaAdapter() {
         mMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->  })
         mBinding.mangaRecyclerView.adapter = mMangaAdapter
+    }
+
+    private fun setTrendingMangaAdapter() {
+        mTrendingMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->  })
+        mBinding.mangaTrendingRecyclerView.adapter = mTrendingMangaAdapter
     }
 
 
@@ -85,6 +92,22 @@ class MangaFragment : Fragment() {
                     mMangaAdapter.submitList(mangaList)
                 } else {
                     mBinding.mangaCategoriesErrorTxt.setError(
+                        status = Status.ERROR,
+                        message = getString(R.string.txt_empty_list)
+                    )
+                }
+            }
+        })
+
+
+        //Trending
+
+        mViewModel.trendingMangaResponse.observe(viewLifecycleOwner, Observer { response ->
+            response.data?.let { mangaList ->
+                if (mangaList.isNotEmpty()) {
+                    mTrendingMangaAdapter.submitList(mangaList)
+                } else {
+                    mBinding.mangaTrendingErrorTxt.setError(
                         status = Status.ERROR,
                         message = getString(R.string.txt_empty_list)
                     )

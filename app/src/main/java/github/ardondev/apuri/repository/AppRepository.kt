@@ -25,4 +25,6 @@ interface AppRepository {
 
     suspend fun getManga(): Result<MangaListResponse>
 
+    suspend fun getTrendingManga(): Result<MangaListResponse>
+
 }

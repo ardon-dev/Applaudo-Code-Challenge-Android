@@ -44,4 +44,7 @@ interface ApiService {
     @GET("manga")
     suspend fun getManga(): MangaListResponse
 
+    @GET("trending/manga")
+    suspend fun getTrendingManga(): MangaListResponse
+
 }

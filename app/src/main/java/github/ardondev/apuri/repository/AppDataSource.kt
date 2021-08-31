@@ -89,4 +89,12 @@ class AppDataSource(
         }
     }
 
+    override suspend fun getTrendingManga(): Result<MangaListResponse> {
+        return try {
+            Result.Success(apiService.getTrendingManga())
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
 }

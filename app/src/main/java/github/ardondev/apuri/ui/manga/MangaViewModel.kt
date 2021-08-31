@@ -12,7 +12,6 @@ import github.ardondev.apuri.utils.getData
 import github.ardondev.apuri.utils.getError
 import github.ardondev.apuri.utils.succeeded
 import kotlinx.coroutines.launch
-import org.koin.android.ext.koin.ERROR_MSG
 
 data class MangaViewModel(
     private val appRepository: AppRepository
@@ -86,9 +85,44 @@ data class MangaViewModel(
     }
 
 
+    //Trending manga
+
+    private val _trendingMangaStatus = MutableLiveData<Status>()
+    val trendingMangaStatus: LiveData<Status>
+        get() = _trendingMangaStatus
+
+    private val _trendingMangaResponse = MutableLiveData<MangaListResponse>()
+    val trendingMangaResponse: LiveData<MangaListResponse>
+        get() = _trendingMangaResponse
+
+    private val _trendingMangaError = MutableLiveData<String>()
+    val trendingMangaError: LiveData<String>
+        get() = _trendingMangaError
+
+    fun getTrendingManga() {
+        viewModelScope.launch {
+            _trendingMangaStatus.postValue(Status.LOADING)
+            val result = appRepository.getTrendingManga()
+
+            if (result.succeeded) {
+                _trendingMangaResponse.postValue(result.getData())
+                _trendingMangaStatus.postValue(Status.SUCCESS)
+
+            } else {
+                _trendingMangaError.postValue(result.getError().message)
+                _trendingMangaStatus.postValue(Status.ERROR)
+
+            }
+
+        }
+
+    }
+
+
     init {
         getCategories()
         getManga()
+        getTrendingManga()
     }
 
 }
