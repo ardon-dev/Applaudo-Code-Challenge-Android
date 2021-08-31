@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import github.ardondev.apuri.databinding.ItemAnimeBinding
 import github.ardondev.apuri.network.models.Anime
+import github.ardondev.apuri.utils.setFullWidth
+import github.ardondev.apuri.utils.toDp
 
 class AnimePagingAdapter(
     private val onAnimeClickListener: AnimeAdapter.OnAnimeClickListener
@@ -28,6 +30,10 @@ class AnimePagingAdapter(
         fun bind(anime: Anime) {
             binding.executePendingBindings()
             binding.anime = anime
+            binding.animeItemParentLyt.setFullWidth(
+                marginTop = 8.toDp(),
+                marginEnd = 8.toDp()
+            )
         }
 
     }

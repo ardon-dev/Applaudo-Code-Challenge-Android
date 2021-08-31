@@ -85,7 +85,6 @@ class AnimeDetailFragment : Fragment() {
         }
         val bottomSheet = BottomSheetDialog(requireContext()).apply {
             setContentView(binding.root)
-            setCancelable(false)
         }
         binding.episodeDetailCloseBtn.setOnClickListener {
             bottomSheet.dismiss()
