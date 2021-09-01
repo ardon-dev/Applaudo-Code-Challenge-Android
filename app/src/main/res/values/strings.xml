@@ -33,4 +33,5 @@
     <string name="txt_volume_number_bind">Vol %1$s. No %2$s</string>
     <string name="txt_chapter_no_title">This chapter has no title.</string>
     <string name="txt_search_manga">Search manga</string>
+    <string name="txt_episode_count_bind">Episode count: %1$s</string>
 </resources>
