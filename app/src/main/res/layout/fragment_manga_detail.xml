@@ -8,8 +8,12 @@
         <import type="android.view.View" />
 
         <variable
+            name="viewModel"
+            type="github.ardondev.apuri.ui.manga_detail.MangaDetailViewModel"/>
+
+        <variable
             name="manga"
-            type="github.ardondev.apuri.network.models.Manga" />
+            type="github.ardondev.apuri.network.models.Manga"/>
 
     </data>
 
@@ -175,7 +179,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:setProgressVisibility="@{viewModel.genreListStatus}"/>
 
                     <TextView
                         android:id="@+id/mangaDetail_genresErrorTxt"
@@ -188,9 +193,27 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Error text" />
+                        tools:text="Error text"
+                        status="@{viewModel.genreListStatus}"
+                        message="@{viewModel.genreListError}"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/txt_synopsis"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{manga.attributes.synopsis}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -208,17 +231,18 @@
                         android:id="@+id/animeDetail_chaptersRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:clipToPadding="false"
-                        android:orientation="horizontal"
                         android:overScrollMode="never"
                         android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        tools:itemCount="4"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/item_episode" />
+                        tools:listitem="@layout/item_chapter" />
 
                     <ProgressBar
                         android:id="@+id/animeDetail_chaptersProgressView"
@@ -228,7 +252,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:setProgressVisibility="@{viewModel.chapterListStatus}"/>
 
                     <TextView
                         android:id="@+id/animeDetail_chaptersErrorTxt"
@@ -241,26 +266,11 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Error text" />
+                        tools:text="Error text"
+                        status="@{viewModel.chapterListStatus}"
+                        message="@{viewModel.chapterListError}"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/txt_synopsis"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@{manga.attributes.synopsis}"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
             </LinearLayout>
 

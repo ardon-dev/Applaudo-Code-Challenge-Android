@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="chapter"
+            type="github.ardondev.apuri.network.models.Chapter"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/itemChapter_volumeTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            tools:text="Vol 1. No 1"
+            android:text="@{@string/txt_volume_number_bind(chapter.attributes.volumeNumber, chapter.attributes.number)}" />
+
+        <TextView
+            android:id="@+id/itemChapter_titleTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            tools:text="Chapter title"
+            android:text="@{chapter.attributes.canonicalTitle != null ? chapter.attributes.canonicalTitle : @string/txt_chapter_no_title}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/dividerHorizontal"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+
+</layout>

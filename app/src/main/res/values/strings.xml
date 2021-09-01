@@ -29,4 +29,6 @@
     <string name="txt_episode_title_bind">S%1$s: Ep %2$s - %3$s</string>
     <string name="txt_all_anime">All anime</string>
     <string name="txt_volume_count_bind">Volume count: %1$s</string>
+    <string name="txt_volume_number_bind">Vol %1$s. No %2$s</string>
+    <string name="txt_chapter_no_title">This chapter has no title.</string>
 </resources>

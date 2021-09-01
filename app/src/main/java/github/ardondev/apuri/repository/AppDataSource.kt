@@ -97,4 +97,20 @@ class AppDataSource(
         }
     }
 
+    override suspend fun getMangaGenres(id: String): Result<GenreListResponse> {
+        return try {
+            Result.Success(apiService.getMangaGenres(id))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getMangaChapters(id: String): Result<ChapterListResponse> {
+        return try {
+            Result.Success(apiService.getMangaChapters(id))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
 }
