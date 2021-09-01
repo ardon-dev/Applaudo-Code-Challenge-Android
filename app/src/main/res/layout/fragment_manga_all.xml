@@ -60,6 +60,7 @@
                 android:paddingStart="8dp"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
+                android:paddingBottom="16dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/mangaAll_errorTxt"
                 app:layout_constraintEnd_toEndOf="parent"
