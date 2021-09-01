@@ -1,6 +1,5 @@
 package github.ardondev.apuri.ui.anime_detail
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -67,6 +66,15 @@ class AnimeDetailFragment : Fragment() {
         //Play button
         mBinding.animeDetailPlayBtn.setOnClickListener {
             requireActivity().openInYT(mArgs.anime?.attributes?.youtubeVideoId ?: "")
+        }
+
+        //More episodes
+        mBinding.animeDetailEpisodesMoreBtn.setOnClickListener {
+            findNavController().navigate(
+                AnimeDetailFragmentDirections.actionAnimeDetailFragmentToEpisodesFragment(
+                    anime = mArgs.anime
+                )
+            )
         }
 
     }

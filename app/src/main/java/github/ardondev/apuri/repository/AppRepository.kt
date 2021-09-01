@@ -3,6 +3,7 @@ package github.ardondev.apuri.repository
 import androidx.paging.PagingData
 import github.ardondev.apuri.network.models.Anime
 import github.ardondev.apuri.network.models.Category
+import github.ardondev.apuri.network.models.Episode
 import github.ardondev.apuri.network.models.Manga
 import github.ardondev.apuri.network.response.*
 import github.ardondev.apuri.utils.Result
@@ -33,5 +34,7 @@ interface AppRepository {
     suspend fun getMangaChapters(id: String): Result<ChapterListResponse>
 
     fun getAllManga(search: String?, category: String?): Flow<PagingData<Manga>>
+
+    fun getAllAnimeEpisodes(animeId: String): Flow<PagingData<Episode>>
 
 }

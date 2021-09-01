@@ -9,6 +9,10 @@
             name="anime"
             type="github.ardondev.apuri.network.models.Anime" />
 
+        <variable
+            name="viewModel"
+            type="github.ardondev.apuri.ui.episodes.EpisodesViewModel"/>
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -52,7 +56,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/item_episode" />
+                tools:listitem="@layout/item_episode"
+                android:paddingBottom="16dp"/>
 
             <TextView
                 android:id="@+id/episodes_errorTxt"
@@ -68,7 +73,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/episodes_recyclerView"
                 tools:text="Error text"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                status="@{viewModel.episodeListStatus}"
+                message="@{viewModel.episodeListError}"/>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/episodes_progressView"
@@ -80,7 +87,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/episodes_errorTxt"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                app:setProgressVisibility="@{viewModel.episodeListStatus}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

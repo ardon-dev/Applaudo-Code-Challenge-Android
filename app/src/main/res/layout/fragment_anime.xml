@@ -133,7 +133,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/anime_labelTxt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/anime_labelTxt"
-                    app:layout_constraintTop_toTopOf="@id/anime_labelTxt" />
+                    app:layout_constraintTop_toTopOf="@id/anime_labelTxt"
+                    app:layout_constraintVertical_bias="0.38" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/anime_recyclerView"
