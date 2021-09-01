@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.CategoryAdapter
@@ -23,6 +24,7 @@ class CategoriesFragment : Fragment() {
 
     private lateinit var mBinding: FragmentCategoriesBinding
     private val mViewModel: CategoriesViewModel by inject()
+    private val mArgs: CategoriesFragmentArgs by navArgs()
     private lateinit var mCategoryPagingAdapter: CategoryPagingAdapter
 
     override fun onCreateView(
@@ -58,10 +60,19 @@ class CategoriesFragment : Fragment() {
 
     private fun setCategoryPagingAdapter() {
         mCategoryPagingAdapter = CategoryPagingAdapter(CategoryAdapter.OnCategoryClickListener { category ->
-            findNavController().navigate(CategoriesFragmentDirections.actionCategoriesFragmentToAnimeAllFragment(
-                category = category.attributes?.slug,
-                categoryName = category.attributes?.title
-            ))
+            //Check if isManga argument is true, to navigate to manga all fragment
+            if (mArgs.isManga) {
+                findNavController().navigate(CategoriesFragmentDirections.actionCategoriesFragmentToMangaAllFragment(
+                    category = category.attributes?.slug,
+                    categoryName = category.attributes?.title
+                ))
+            } else {
+                //Go to anime all fragment
+                findNavController().navigate(CategoriesFragmentDirections.actionCategoriesFragmentToAnimeAllFragment(
+                    category = category.attributes?.slug,
+                    categoryName = category.attributes?.title
+                ))
+            }
         }).apply {
             //State listener
             addLoadStateListener { loadState ->

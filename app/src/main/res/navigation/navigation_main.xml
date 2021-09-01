@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_mangaFragment_to_mangaAllFragment"
             app:destination="@id/mangaAllFragment" />
+        <action
+            android:id="@+id/action_mangaFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
 
     </fragment>
 
@@ -71,6 +74,15 @@
         <action
             android:id="@+id/action_categoriesFragment_to_animeAllFragment"
             app:destination="@id/animeAllFragment"/>
+
+        <argument
+            android:name="isManga"
+            app:argType="boolean"
+            android:defaultValue="false"/>
+
+        <action
+            android:id="@+id/action_categoriesFragment_to_mangaAllFragment"
+            app:destination="@id/mangaAllFragment"/>
 
     </fragment>
 
@@ -110,6 +122,11 @@
 
         <argument
             android:name="category"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
+            android:name="categoryName"
             app:argType="string"
             app:nullable="true"/>
 

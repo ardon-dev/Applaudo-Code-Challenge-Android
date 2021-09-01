@@ -54,7 +54,17 @@ class MangaFragment : Fragment() {
         mBinding.mangaSeeMoreButton.setOnClickListener {
             findNavController().navigate(
                 MangaFragmentDirections.actionMangaFragmentToMangaAllFragment(
-                    category = null
+                    category = null,
+                    categoryName = null
+                )
+            )
+        }
+
+        //See all categories
+        mBinding.mangaCategoriesSeeMoreButton.setOnClickListener {
+            findNavController().navigate(
+                MangaFragmentDirections.actionMangaFragmentToCategoriesFragment(
+                    isManga = true
                 )
             )
         }
@@ -62,7 +72,13 @@ class MangaFragment : Fragment() {
     }
 
     private fun setCategoryAdapter() {
-        mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category -> })
+        mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category ->
+            //Send to manga all fragment to filter by category
+            findNavController().navigate(MangaFragmentDirections.actionMangaFragmentToMangaAllFragment(
+                category = category.attributes?.slug,
+                categoryName = category.attributes?.title
+            ))
+        })
         mBinding.mangaCategoriesRecyclerView.adapter = mCategoryAdapter
     }
 

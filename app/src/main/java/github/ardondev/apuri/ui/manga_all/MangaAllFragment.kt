@@ -37,7 +37,7 @@ class MangaAllFragment : Fragment() {
         mBinding = FragmentMangaAllBinding.inflate(inflater).apply {
             lifecycleOwner = this@MangaAllFragment
             viewModel = this@MangaAllFragment.mViewModel
-            categoryName = this@MangaAllFragment.mArgs.category
+            categoryName = this@MangaAllFragment.mArgs.categoryName
         }
         initFLow()
         return mBinding.root
