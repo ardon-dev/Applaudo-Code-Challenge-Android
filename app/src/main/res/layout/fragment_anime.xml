@@ -11,238 +11,283 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
         tools:context=".ui.anime.AnimeFragment">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/anime_appBarLyt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white"
+            app:liftOnScroll="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:collapsedTitleGravity="start"
+                app:expandedTitleGravity="end"
+                app:contentScrim="@color/actionbar_background"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/img_anime"
+                    android:background="@color/actionbar_background"
+                    android:scaleType="fitStart"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_gradient"/>
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/anime_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:title="@string/txt_anime"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/anime_categoriesLabelTxt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/txt_categories"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    app:layout_constraintBottom_toTopOf="@id/anime_categoriesRecyclerView"
-                    app:layout_constraintEnd_toStartOf="@id/anime_categoriesSeeMoreButton"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/anime_categoriesSeeMoreButton"
-                    style="@style/Apuri.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/txt_see_more"
-                    app:icon="@drawable/ic_round_keyboard_arrow_right_24"
-                    app:iconGravity="end"
-                    app:iconPadding="0dp"
-                    app:layout_constraintBottom_toBottomOf="@id/anime_categoriesLabelTxt"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/anime_categoriesLabelTxt"
-                    app:layout_constraintTop_toTopOf="@id/anime_categoriesLabelTxt"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/anime_categoriesRecyclerView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_categoriesLabelTxt"
-                    app:spanCount="2"
-                    tools:listitem="@layout/item_category" />
+                    android:orientation="vertical">
 
-                <ProgressBar
-                    android:id="@+id/anime_categoriesProgressView"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_categoriesLabelTxt"
-                    app:setProgressVisibility="@{viewModel.categoryListStatus}" />
+                    <TextView
+                        android:id="@+id/anime_categoriesLabelTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txt_categories"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintBottom_toTopOf="@id/anime_categoriesRecyclerView"
+                        app:layout_constraintEnd_toStartOf="@id/anime_categoriesSeeMoreButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/anime_categoriesErrorTxt"
-                    message="@{viewModel.categoryListError}"
-                    status="@{viewModel.categoryListStatus}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_categoriesLabelTxt"
-                    tools:text="Error text" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/anime_categoriesSeeMoreButton"
+                        style="@style/Apuri.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/txt_see_more"
+                        app:icon="@drawable/ic_round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconPadding="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/anime_categoriesLabelTxt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/anime_categoriesLabelTxt"
+                        app:layout_constraintTop_toTopOf="@id/anime_categoriesLabelTxt"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/anime_categoriesRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_categoriesLabelTxt"
+                        app:spanCount="2"
+                        tools:listitem="@layout/item_category" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    <ProgressBar
+                        android:id="@+id/anime_categoriesProgressView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_categoriesLabelTxt"
+                        app:setProgressVisibility="@{viewModel.categoryListStatus}" />
 
-                <TextView
-                    android:id="@+id/anime_labelTxt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/txt_anime"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    app:layout_constraintBottom_toTopOf="@id/anime_recyclerView"
-                    app:layout_constraintEnd_toStartOf="@id/anime_seeMoreButton"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/anime_categoriesErrorTxt"
+                        message="@{viewModel.categoryListError}"
+                        status="@{viewModel.categoryListStatus}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_categoriesLabelTxt"
+                        tools:text="Error text" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/anime_seeMoreButton"
-                    style="@style/Apuri.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/txt_see_more"
-                    app:icon="@drawable/ic_round_keyboard_arrow_right_24"
-                    app:iconGravity="end"
-                    app:iconPadding="0dp"
-                    app:layout_constraintBottom_toBottomOf="@id/anime_labelTxt"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/anime_labelTxt"
-                    app:layout_constraintTop_toTopOf="@id/anime_labelTxt"
-                    app:layout_constraintVertical_bias="0.38" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/anime_recyclerView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_labelTxt"
-                    tools:listitem="@layout/item_anime" />
+                    android:orientation="vertical">
 
-                <ProgressBar
-                    android:id="@+id/anime_progressView"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_labelTxt"
-                    app:setProgressVisibility="@{viewModel.animeListStatus}" />
+                    <TextView
+                        android:id="@+id/anime_labelTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txt_anime"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintBottom_toTopOf="@id/anime_recyclerView"
+                        app:layout_constraintEnd_toStartOf="@id/anime_seeMoreButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/anime_errorTxt"
-                    message="@{viewModel.animeListError}"
-                    status="@{viewModel.animeListStatus}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_labelTxt"
-                    tools:text="Error text" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/anime_seeMoreButton"
+                        style="@style/Apuri.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/txt_see_more"
+                        app:icon="@drawable/ic_round_keyboard_arrow_right_24"
+                        app:iconGravity="end"
+                        app:iconPadding="0dp"
+                        app:layout_constraintBottom_toBottomOf="@id/anime_labelTxt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/anime_labelTxt"
+                        app:layout_constraintTop_toTopOf="@id/anime_labelTxt"
+                        app:layout_constraintVertical_bias="0.38" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/anime_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_labelTxt"
+                        tools:listitem="@layout/item_anime" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    <ProgressBar
+                        android:id="@+id/anime_progressView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_labelTxt"
+                        app:setProgressVisibility="@{viewModel.animeListStatus}" />
 
-                <TextView
-                    android:id="@+id/anime_trendingLabelTxt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/txt_trending"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/anime_errorTxt"
+                        message="@{viewModel.animeListError}"
+                        status="@{viewModel.animeListStatus}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_labelTxt"
+                        tools:text="Error text" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/anime_trendingRecyclerView"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_trendingLabelTxt"
-                    tools:listitem="@layout/item_anime" />
+                    android:orientation="vertical">
 
-                <ProgressBar
-                    android:id="@+id/anime_trendingProgressView"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_trendingLabelTxt"
-                    app:setProgressVisibility="@{viewModel.animeTrendingStatus}" />
+                    <TextView
+                        android:id="@+id/anime_trendingLabelTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txt_trending"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/anime_trendingErrorTxt"
-                    message="@{viewModel.animeTrendingError}"
-                    status="@{viewModel.animeTrendingStatus}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/anime_trendingLabelTxt"
-                    tools:text="Error text" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/anime_trendingRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_trendingLabelTxt"
+                        tools:listitem="@layout/item_anime" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ProgressBar
+                        android:id="@+id/anime_trendingProgressView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_trendingLabelTxt"
+                        app:setProgressVisibility="@{viewModel.animeTrendingStatus}" />
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/anime_trendingErrorTxt"
+                        message="@{viewModel.animeTrendingError}"
+                        status="@{viewModel.animeTrendingStatus}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/anime_trendingLabelTxt"
+                        tools:text="Error text" />
 
-    </androidx.core.widget.NestedScrollView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

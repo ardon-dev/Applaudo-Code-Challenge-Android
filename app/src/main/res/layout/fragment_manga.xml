@@ -36,8 +36,7 @@
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/img_manga"
                     android:background="@color/actionbar_background"
-                    android:scaleType="fitEnd"
-                    android:paddingEnd="16dp"/>
+                    android:scaleType="fitEnd"/>
 
                 <View
                     android:layout_width="match_parent"
