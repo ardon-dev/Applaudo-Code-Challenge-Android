@@ -36,10 +36,11 @@
             app:destination="@id/mangaDetailFragment"/>
         <action
             android:id="@+id/action_mangaFragment_to_mangaAllFragment"
-            app:destination="@id/mangaAllFragment" />
+            app:destination="@id/mangaAllFragment"/>
+
         <action
             android:id="@+id/action_mangaFragment_to_categoriesFragment"
-            app:destination="@id/categoriesFragment" />
+            app:destination="@id/categoriesFragment"/>
 
     </fragment>
 
@@ -97,6 +98,9 @@
             app:argType="github.ardondev.apuri.network.models.Anime"
             app:nullable="true"
             android:defaultValue="@null"/>
+        <action
+            android:id="@+id/action_animeDetailFragment_to_episodesFragment"
+            app:destination="@id/episodesFragment" />
 
     </fragment>
 
@@ -133,6 +137,20 @@
         <action
             android:id="@+id/action_mangaAllFragment_to_mangaDetailFragment"
             app:destination="@id/mangaDetailFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="github.ardondev.apuri.ui.episodes.EpisodesFragment"
+        android:label="EpisodesFragment"
+        tools:layout="@layout/fragment_episodes">
+
+        <argument
+            android:name="anime"
+            app:argType="github.ardondev.apuri.network.models.Anime"
+            app:nullable="true"
+            android:defaultValue="@null"/>
 
     </fragment>
 
