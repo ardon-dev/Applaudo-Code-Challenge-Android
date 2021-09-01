@@ -16,6 +16,12 @@
         <item name="bottomSheetDialogTheme">@style/Apuri.BottomSheetDialogTheme</item>
     </style>
 
+    <style name="Apuri.SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <!-- Custom styles -->
 
     <style name="Apuri.TextButton" parent="Widget.MaterialComponents.Button.TextButton">

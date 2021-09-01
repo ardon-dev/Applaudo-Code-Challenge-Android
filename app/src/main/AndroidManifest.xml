@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Apuri"
+        android:theme="@style/Apuri.SplashTheme"
         android:name=".Apuri">
 
         <activity android:name=".ui.MainActivity">

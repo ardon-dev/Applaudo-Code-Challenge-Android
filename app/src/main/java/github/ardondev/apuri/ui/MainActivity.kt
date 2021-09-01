@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Apuri)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initFlow()
     }
