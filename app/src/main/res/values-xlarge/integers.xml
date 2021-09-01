@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="animeSpanCount" type="integer">7</item>
+    <item name="categoriesSpanCount" type="integer">6</item>
+    <item name="episodesSpanCount" type="integer">3</item>
+</resources>
