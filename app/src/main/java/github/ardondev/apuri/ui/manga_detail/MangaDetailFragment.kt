@@ -14,6 +14,7 @@ import github.ardondev.apuri.adapters.GenreAdapter
 import github.ardondev.apuri.databinding.FragmentMangaDetailBinding
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.setError
+import github.ardondev.apuri.utils.shareText
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -57,6 +58,12 @@ class MangaDetailFragment : Fragment() {
         //Back button
         mBinding.mangaDetailToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+
+        //Share button
+        mBinding.mangaDetailToolbar.menu.findItem(R.id.toolbarMenu_share).setOnMenuItemClickListener {
+            requireActivity().shareText(mArgs.manga?.attributes?.canonicalTitle)
+            return@setOnMenuItemClickListener true
         }
 
     }

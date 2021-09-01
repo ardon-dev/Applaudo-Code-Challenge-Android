@@ -8,6 +8,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import github.ardondev.apuri.databinding.LayoutEpisodeDetailBinding
 import github.ardondev.apuri.network.models.Episode
@@ -53,6 +54,20 @@ fun Activity.openInYT(videoId: String?) {
         startActivity(
             Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$it"))
         )
+    }
+}
+
+fun Activity.shareText(text: String?) {
+    if (text != null) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, text)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    } else {
+        Toast.makeText(this, "Share error", Toast.LENGTH_SHORT).show()
     }
 }
 

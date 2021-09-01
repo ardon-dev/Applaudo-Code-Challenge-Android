@@ -15,10 +15,7 @@ import github.ardondev.apuri.adapters.GenreAdapter
 import github.ardondev.apuri.databinding.FragmentAnimeDetailBinding
 import github.ardondev.apuri.databinding.LayoutEpisodeDetailBinding
 import github.ardondev.apuri.network.models.Episode
-import github.ardondev.apuri.utils.Status
-import github.ardondev.apuri.utils.openInYT
-import github.ardondev.apuri.utils.setError
-import github.ardondev.apuri.utils.showEpisodeDetailBottomSheet
+import github.ardondev.apuri.utils.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -76,6 +73,12 @@ class AnimeDetailFragment : Fragment() {
                     anime = mArgs.anime
                 )
             )
+        }
+
+        //Share button
+        mBinding.animeDetailToolbar.menu.findItem(R.id.toolbarMenu_share).setOnMenuItemClickListener {
+            requireActivity().shareText(mArgs.anime?.attributes?.canonicalTitle)
+            return@setOnMenuItemClickListener true
         }
 
     }
