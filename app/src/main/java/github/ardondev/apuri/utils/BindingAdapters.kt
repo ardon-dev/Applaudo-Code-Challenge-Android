@@ -17,7 +17,7 @@ fun ImageView.setRemoteImage(url: String?) {
     url?.let {
         Glide.with(this.context)
             .load(url)
-            .placeholder(R.drawable.ic_anime)
+            .placeholder(R.drawable.img_placeholder)
             .into(this)
     }
 }

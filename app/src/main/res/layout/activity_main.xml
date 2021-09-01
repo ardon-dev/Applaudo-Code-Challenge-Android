@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/navigation_main" />
 
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bottomNavView"
             android:layout_width="0dp"
@@ -33,7 +34,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_hostFragment"/>
+            app:layout_constraintTop_toBottomOf="@id/main_hostFragment"
+            app:backgroundTint="@color/actionbar_background"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
