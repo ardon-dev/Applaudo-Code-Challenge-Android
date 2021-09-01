@@ -13,6 +13,7 @@ import github.ardondev.apuri.adapters.EpisodeAdapter
 import github.ardondev.apuri.adapters.EpisodePagingAdapter
 import github.ardondev.apuri.databinding.FragmentEpisodesBinding
 import github.ardondev.apuri.utils.Status
+import github.ardondev.apuri.utils.showEpisodeDetailBottomSheet
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -61,6 +62,8 @@ class EpisodesFragment : Fragment() {
 
     private fun setEpisodePagingAdapter() {
         mEpisodePagingAdapter = EpisodePagingAdapter(EpisodeAdapter.OnEpisodeClickListener { episode ->
+            //Show episode detail
+            requireActivity().showEpisodeDetailBottomSheet(episode)
 
         }).apply {
             //State listener

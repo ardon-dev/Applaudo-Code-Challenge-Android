@@ -18,6 +18,7 @@ import github.ardondev.apuri.network.models.Episode
 import github.ardondev.apuri.utils.Status
 import github.ardondev.apuri.utils.openInYT
 import github.ardondev.apuri.utils.setError
+import github.ardondev.apuri.utils.showEpisodeDetailBottomSheet
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -86,24 +87,9 @@ class AnimeDetailFragment : Fragment() {
 
     private fun setEpisodeAdapter() {
         mEpisodeAdapter = EpisodeAdapter(EpisodeAdapter.OnEpisodeClickListener { episode ->
-            showEpisodeDetailBottomSheet(episode)
+            requireActivity().showEpisodeDetailBottomSheet(episode)
         })
         mBinding.animeDetailEpisodesRecyclerView.adapter = mEpisodeAdapter
-    }
-
-    private fun showEpisodeDetailBottomSheet(episode: Episode) {
-        val binding = LayoutEpisodeDetailBinding.inflate(
-            LayoutInflater.from(requireContext()), null, false
-        ).apply {
-            this.episode = episode
-        }
-        val bottomSheet = BottomSheetDialog(requireContext()).apply {
-            setContentView(binding.root)
-        }
-        binding.episodeDetailCloseBtn.setOnClickListener {
-            bottomSheet.dismiss()
-        }
-        bottomSheet.show()
     }
 
 

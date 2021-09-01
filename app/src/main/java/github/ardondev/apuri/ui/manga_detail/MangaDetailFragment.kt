@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import github.ardondev.apuri.R
 import github.ardondev.apuri.adapters.ChapterAdapter
@@ -43,12 +44,22 @@ class MangaDetailFragment : Fragment() {
         setObservers()
         setGenreAdapter()
         setChapterAdapter()
+        setOnClickListeners()
     }
 
 
     /*
     UI
      */
+
+    private fun setOnClickListeners() {
+
+        //Back button
+        mBinding.mangaDetailToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+    }
 
     private fun setGenreAdapter() {
         mGenreAdapter = GenreAdapter()

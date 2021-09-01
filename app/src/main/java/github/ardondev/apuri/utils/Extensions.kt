@@ -5,8 +5,12 @@ import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import github.ardondev.apuri.databinding.LayoutEpisodeDetailBinding
+import github.ardondev.apuri.network.models.Episode
 
 //View visibility
 
@@ -50,4 +54,21 @@ fun Activity.openInYT(videoId: String?) {
             Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$it"))
         )
     }
+}
+
+//Dialogs
+
+fun Activity.showEpisodeDetailBottomSheet(episode: Episode) {
+    val binding = LayoutEpisodeDetailBinding.inflate(
+        LayoutInflater.from(this), null, false
+    ).apply {
+        this.episode = episode
+    }
+    val bottomSheet = BottomSheetDialog(this).apply {
+        setContentView(binding.root)
+    }
+    binding.episodeDetailCloseBtn.setOnClickListener {
+        bottomSheet.dismiss()
+    }
+    bottomSheet.show()
 }
