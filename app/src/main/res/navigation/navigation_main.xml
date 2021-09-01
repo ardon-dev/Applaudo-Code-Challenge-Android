@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_mangaFragment_to_mangaDetailFragment"
             app:destination="@id/mangaDetailFragment"/>
+        <action
+            android:id="@+id/action_mangaFragment_to_mangaAllFragment"
+            app:destination="@id/mangaAllFragment" />
 
     </fragment>
 
@@ -90,11 +93,30 @@
         android:name="github.ardondev.apuri.ui.manga_detail.MangaDetailFragment"
         android:label="MangaDetailFragment"
         tools:layout="@layout/fragment_manga_detail">
+
         <argument
             android:name="manga"
             app:argType="github.ardondev.apuri.network.models.Manga"
             app:nullable="true"
-            android:defaultValue="@null" />
+            android:defaultValue="@null"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mangaAllFragment"
+        android:name="github.ardondev.apuri.ui.manga_all.MangaAllFragment"
+        android:label="MangaAllFragment"
+        tools:layout="@layout/fragment_manga_all">
+
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <action
+            android:id="@+id/action_mangaAllFragment_to_mangaDetailFragment"
+            app:destination="@id/mangaDetailFragment"/>
+
     </fragment>
 
 </navigation>

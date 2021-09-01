@@ -6,9 +6,11 @@ import androidx.paging.PagingData
 import github.ardondev.apuri.network.ApiService
 import github.ardondev.apuri.network.models.Anime
 import github.ardondev.apuri.network.models.Category
+import github.ardondev.apuri.network.models.Manga
 import github.ardondev.apuri.network.response.*
 import github.ardondev.apuri.repository.paging.AnimePagingDataSource
 import github.ardondev.apuri.repository.paging.CategoryPagingDataSource
+import github.ardondev.apuri.repository.paging.MangaPagingDataSource
 import github.ardondev.apuri.utils.Result
 import kotlinx.coroutines.flow.Flow
 
@@ -111,6 +113,19 @@ class AppDataSource(
         } catch (e: Exception) {
             Result.Error(e)
         }
+    }
+
+    override fun getAllManga(search: String?, category: String?): Flow<PagingData<Manga>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                MangaPagingDataSource(
+                    apiService = apiService,
+                    search = search,
+                    category = category
+                )
+            }
+        ).flow
     }
 
 }

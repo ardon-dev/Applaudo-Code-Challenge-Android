@@ -40,6 +40,7 @@ class MangaFragment : Fragment() {
         setCategoryAdapter()
         setMangaAdapter()
         setTrendingMangaAdapter()
+        setOnClickListeners()
     }
 
 
@@ -47,17 +48,32 @@ class MangaFragment : Fragment() {
     UI
      */
 
+    private fun setOnClickListeners() {
+
+        //See more manga
+        mBinding.mangaSeeMoreButton.setOnClickListener {
+            findNavController().navigate(
+                MangaFragmentDirections.actionMangaFragmentToMangaAllFragment(
+                    category = null
+                )
+            )
+        }
+
+    }
+
     private fun setCategoryAdapter() {
-        mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category ->  })
+        mCategoryAdapter = CategoryAdapter(CategoryAdapter.OnCategoryClickListener { category -> })
         mBinding.mangaCategoriesRecyclerView.adapter = mCategoryAdapter
     }
 
     private fun setMangaAdapter() {
         mMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->
             //Navigate to details
-            findNavController().navigate(MangaFragmentDirections.actionMangaFragmentToMangaDetailFragment(
-                manga
-            ))
+            findNavController().navigate(
+                MangaFragmentDirections.actionMangaFragmentToMangaDetailFragment(
+                    manga
+                )
+            )
         })
         mBinding.mangaRecyclerView.adapter = mMangaAdapter
     }
@@ -65,9 +81,11 @@ class MangaFragment : Fragment() {
     private fun setTrendingMangaAdapter() {
         mTrendingMangaAdapter = MangaAdapter(MangaAdapter.OnMangaClickListener { manga ->
             //Navigate to details
-            findNavController().navigate(MangaFragmentDirections.actionMangaFragmentToMangaDetailFragment(
-                manga
-            ))
+            findNavController().navigate(
+                MangaFragmentDirections.actionMangaFragmentToMangaDetailFragment(
+                    manga
+                )
+            )
         })
         mBinding.mangaTrendingRecyclerView.adapter = mTrendingMangaAdapter
     }

@@ -1,4 +1,4 @@
-package github.ardondev.apuri.ui.anime_all
+package github.ardondev.apuri.ui.manga_all
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,40 +11,41 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
-import github.ardondev.apuri.adapters.AnimeAdapter
-import github.ardondev.apuri.adapters.AnimePagingAdapter
-import github.ardondev.apuri.databinding.FragmentAnimeAllBinding
+import github.ardondev.apuri.R
+import github.ardondev.apuri.adapters.MangaAdapter
+import github.ardondev.apuri.adapters.MangaPagingAdapter
+import github.ardondev.apuri.databinding.FragmentMangaAllBinding
 import github.ardondev.apuri.utils.Status
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class AnimeAllFragment : Fragment() {
+class MangaAllFragment : Fragment() {
 
-    private lateinit var mBinding: FragmentAnimeAllBinding
-    private val mArgs: AnimeAllFragmentArgs by navArgs()
-    private val mViewModel: AnimeAllViewModel by inject {
+    private lateinit var mBinding: FragmentMangaAllBinding
+    private val mArgs: MangaAllFragmentArgs by navArgs()
+    private val mViewModel: MangaAllViewModel by inject {
         parametersOf(mArgs.category)
     }
-    private lateinit var mAnimePagingAdapter: AnimePagingAdapter
+    private lateinit var mMangaPagingAdapter: MangaPagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentAnimeAllBinding.inflate(inflater).apply {
-            lifecycleOwner = this@AnimeAllFragment
-            viewModel = this@AnimeAllFragment.mViewModel
-            categoryName = this@AnimeAllFragment.mArgs.categoryName
+        mBinding = FragmentMangaAllBinding.inflate(inflater).apply {
+            lifecycleOwner = this@MangaAllFragment
+            viewModel = this@MangaAllFragment.mViewModel
+            categoryName = this@MangaAllFragment.mArgs.category
         }
-        initFlow()
+        initFLow()
         return mBinding.root
     }
 
-    private fun initFlow() {
+    private fun initFLow() {
         setObservers()
-        setAnimePagingAdapter()
+        setMangaPagingAdapter()
         setupSearchView()
         setOnClickListeners()
     }
@@ -57,47 +58,47 @@ class AnimeAllFragment : Fragment() {
     private fun setOnClickListeners() {
 
         //Back button
-        mBinding.animeAllToolbar.setNavigationOnClickListener {
+        mBinding.mangaAllToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
     }
 
-    private fun setAnimePagingAdapter() {
-        mAnimePagingAdapter = AnimePagingAdapter(AnimeAdapter.OnAnimeClickListener { anime ->
+    private fun setMangaPagingAdapter() {
+        mMangaPagingAdapter = MangaPagingAdapter(MangaAdapter.OnMangaClickListener { manga ->
             //Navigate to detail
             findNavController().navigate(
-                AnimeAllFragmentDirections.actionAnimeAllFragmentToAnimeDetailFragment(anime)
+                MangaAllFragmentDirections.actionMangaAllFragmentToMangaDetailFragment(manga)
             )
         }).apply {
             //State listener
             addLoadStateListener { loadState ->
                 when(loadState.refresh) {
-                    is LoadState.Loading -> mViewModel.setAnimeListStatus(Status.LOADING)
+                    is LoadState.Loading -> mViewModel.setMangaListStatus(Status.LOADING)
                     is LoadState.Error -> {
-                        mViewModel.setAnimeListStatus(Status.ERROR)
-                        mViewModel.setAnimeListError((loadState.refresh as LoadState.Error).error.message)
+                        mViewModel.setMangaListStatus(Status.ERROR)
+                        mViewModel.setMangaListError((loadState.refresh as LoadState.Error).error.message)
                     }
-                    is LoadState.NotLoading -> mViewModel.setAnimeListStatus(Status.SUCCESS)
+                    is LoadState.NotLoading -> mViewModel.setMangaListStatus(Status.SUCCESS)
                 }
                 when(loadState.append) {
-                    is LoadState.Loading -> mViewModel.setAnimeListStatus(Status.LOADING)
+                    is LoadState.Loading -> mViewModel.setMangaListStatus(Status.LOADING)
                     is LoadState.Error -> {
-                        mViewModel.setAnimeListStatus(Status.ERROR)
-                        mViewModel.setAnimeListError((loadState.append as LoadState.Error).error.message)
+                        mViewModel.setMangaListStatus(Status.ERROR)
+                        mViewModel.setMangaListError((loadState.append as LoadState.Error).error.message)
                     }
-                    is LoadState.NotLoading -> mViewModel.setAnimeListStatus(Status.SUCCESS)
+                    is LoadState.NotLoading -> mViewModel.setMangaListStatus(Status.SUCCESS)
                 }
             }
         }
 
-        mBinding.animeAllRecyclerView.adapter = mAnimePagingAdapter
-        getAllAnime()
+        mBinding.mangaAllRecyclerView.adapter = mMangaPagingAdapter
+        getAllManga()
 
     }
 
     private fun setupSearchView() {
-        mBinding.animeAllSearchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        mBinding.mangaAllSearchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 mViewModel.searchQuery.postValue(p0)
                 return true
@@ -105,7 +106,7 @@ class AnimeAllFragment : Fragment() {
             override fun onQueryTextChange(p0: String?): Boolean {
                 if (p0?.isEmpty() == true) {
                     mViewModel.searchQuery.postValue(null)
-                    getAllAnime()
+                    getAllManga()
                 }
                 return true
             }
@@ -117,10 +118,10 @@ class AnimeAllFragment : Fragment() {
     REQUESTS
      */
 
-    private fun getAllAnime() {
+    private fun getAllManga() {
         lifecycleScope.launch {
-            mViewModel.getAllAnime().collectLatest { animeList ->
-                mAnimePagingAdapter.submitData(animeList)
+            mViewModel.getAllManga().collectLatest { mangaList ->
+                mMangaPagingAdapter.submitData(mangaList)
             }
         }
     }
@@ -134,7 +135,7 @@ class AnimeAllFragment : Fragment() {
 
         //Search query
         mViewModel.searchQuery.observe(viewLifecycleOwner, Observer { searchQuery ->
-            getAllAnime()
+            getAllManga()
         })
 
     }

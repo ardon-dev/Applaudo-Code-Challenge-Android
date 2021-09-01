@@ -57,4 +57,12 @@ interface ApiService {
         @Path("id") id: String
     ): ChapterListResponse
 
+    @GET("manga")
+    suspend fun getAllManga(
+        @QueryMap limit: Map<String, Int>?,
+        @QueryMap offset: Map<String, Int>?,
+        @QueryMap search: Map<String, String>?,
+        @QueryMap category: Map<String, String>?
+    ): MangaListResponse
+
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="categoryName"
+            type="String"/>
+
+        <variable
+            name="viewModel"
+            type="github.ardondev.apuri.ui.manga_all.MangaAllViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.manga_all.MangaAllFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/mangaAll_appBarLyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/actionbar_background"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/mangaAll_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+                app:title="@{categoryName != null ? categoryName : @string/txt_all_manga}"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/mangaAll_searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryHint="@string/txt_search_manga"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/bg_search_view"
+                app:queryBackground="@android:color/transparent"
+                android:layout_marginVertical="8dp"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mangaAll_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingStart="8dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/mangaAll_errorTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:spanCount="3"
+                tools:listitem="@layout/item_manga"/>
+
+            <TextView
+                android:id="@+id/mangaAll_errorTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toTopOf="@id/mangaAll_progressView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mangaAll_recyclerView"
+                tools:text="Error text"
+                android:visibility="gone"
+                status="@{viewModel.mangaListStatus}"
+                message="@{viewModel.mangaListError}"/>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/mangaAll_progressView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mangaAll_errorTxt"
+                android:visibility="gone"
+                app:setProgressVisibility="@{viewModel.mangaListStatus}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
